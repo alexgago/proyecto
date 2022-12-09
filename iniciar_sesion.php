@@ -44,10 +44,7 @@ session_start();
                 $errores[]="La contrasña esta vacío";
         }
 		if(isset($_POST['registrar'])){
-           // header("Location:registrar.php");
-		   echo "<pre>";
-		   print_r($_POST);
-		   echo "</pre>";
+           header("Location:registrar.php");
         }	
 	}
 	
@@ -67,7 +64,7 @@ session_start();
 			$_SESSION['cod_postal'] = $datos['codigo_postal'];
 			$_SESSION['rol'] = ucfirst($datos['rol']);
             $_SESSION["email"] = $email;
-			//header("Location:inicio.php");
+			header("Location:inicio.php");
         }
   
 

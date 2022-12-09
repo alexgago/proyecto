@@ -1,7 +1,7 @@
 $(document).ready(function(){
     tablaPermisos=$('#tablaPermisos').DataTable({
         "aaSorting":[],
-        'pageLength':25,
+        'pageLength':30,
     });
 
     tablaPermisos1=$('#tablaPrincipal').DataTable({

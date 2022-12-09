@@ -42,17 +42,6 @@ $(document).ready(function () {
             }
         }
         console.log($("#pa").val());
-        $.ajax({
-            url:"conexion/conexionCrud.php",
-            type:"POST",
-            datatype:"json",
-            data: {
-                vias_predefinidas: vias_predefinidas,
-                vias_seleccionadas: vias_seleccionadas,
-                formulacion_actual: formulacion_actual,
-                pa_actual: pa_actual
-            },
-        })
         $("#pa").val($("#v_pa").val());
         $("#medicamento").val($("#v_formu").val());
         $('#mostrarModal').modal('hide');
@@ -75,8 +64,4 @@ function Color(ele) {
     if ($(ele).val() == "") {
         $(ele).css("background-color", "red");
     }
-}
-
-function myFunction() {
-
 }

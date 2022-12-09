@@ -106,7 +106,7 @@
             <label for="Venta_Alquiler" class="form-label">Venta/Alquiler:</label>
             <select name="Venta_Alquiler">
                 <option style="height:50px" value="venta">Venta</option>
-                <option style="height:50px" value="venta">Alquiler</option>
+                <option style="height:50px" value="alquilar">Alquilar</option>
             </select>
         </div>
         <div class="mb-3">
