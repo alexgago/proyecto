@@ -5,12 +5,6 @@ $(document).ready(function(){
     });
 
     tablaPermisos1=$('#tablaPrincipal').DataTable({
-    
-     /*  "columnDefs":[{
-           "targets": -1,
-           "data":null,
-           "defaultContent":"<div class='text-center'><div class='btn-group'><button class='btn btn-default btn-editar btnEditar' data-bs-toggle='modal' data-bs-target='#mostrarModal'> <span class='material-symbols-outlined'>edit</span></button></div></div>",
-       }],*/
           
        "language":{
            "lengthMenu":"Mostrar _MENU_ registros",
@@ -54,25 +48,6 @@ $(document).ready(function(){
       }
   });
 
-
-   //aqui me devuelve el nombre del roll
-   var nombre_rol;
-   var valor=$(document).on("click",'.btnEditar',function(){
-       fila = $(this).closest("tr");
-       nombre_rol=fila.find('td:eq(0)').text();
-       localStorage.setItem("nombre_rol", nombre_rol);
-       $.ajax({
-           url:"./conexion/conexionCrud.php",
-           type:"POST",
-           datatype:"json",    
-           data:{
-                nombre_rol: nombre_rol
-  
-                 },    
-         });	
-
-     
-   });
 //simplemente muestra modal
 $(".btn-editar").click(function(){
    $('#mostrarModal').modal('show');
@@ -86,19 +61,8 @@ $("#formulario").submit(function(e){
        array.push($(this).prop("id"));
    });
    alert(array);
-   $.ajax({
-       url:"conexion/conexionCrud.php",
-       type:"POST",
-       datatype:"json",
-       data:{
-           permisos:array,
-           nombre_rol:nombre_rol,
-           cambiar:cambiar
-       },
-   })
+  
    $('#mostrarModal').modal('hide');
-   /* console.log(nombre_rol);
-   console.log(array); */
 })
 //checkbox en el que selecciona todos anterirores
 $("#Todos").change(function () {

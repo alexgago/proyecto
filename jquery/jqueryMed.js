@@ -14,38 +14,6 @@ $(document).ready(function () {
             }
         }
     });
-    //comprobamos que checkbox esta seleccionado.
-    $("#enviar1").click(function () {
-        vias_predefinidas = [];
-        vias_seleccionadas = [];
-        pa_actual = $("#v_pa").val();
-        localStorage.setItem("pa_actual", pa_actual);
-        formulacion_actual = $("#v_formu").val();
-        localStorage.setItem("formulacion_actual", formulacion_actual);
-
-        for (let index = 0; index < longitud; index++) {
-            //guardamos las vias que estaba seleccionadas previamente
-            localStorage.setItem("vias_predefinidas", vias_predefinidas);
-            vias_predefinidas.push($("#" + (index + 1)).val());
-            if (!($("#" + $(".chk-box")[index].id).prop("checked"))) {
-                for (let i = 0; i < longitud; i++) {
-                    if ($("#" + (i + 1)).val() == $("#" + $(".chk-box")[index].id).val()) {
-
-                        $("#" + (i + 1)).prop("checked", false);
-                    }
-                }
-            } else {
-                $("#" + (index + 1)).prop("checked", true);
-                //guardamos las vias seleccionadas
-                localStorage.setItem('vias_selecccionadas', vias_seleccionadas);
-                vias_seleccionadas.push($("#" + (index + 1)).val());
-            }
-        }
-        console.log($("#pa").val());
-        $("#pa").val($("#v_pa").val());
-        $("#medicamento").val($("#v_formu").val());
-        $('#mostrarModal').modal('hide');
-    });
 
     $("#close").click(function () {
         $('#mostrarModal').modal('hide');
