@@ -55,7 +55,7 @@
                                 <tr>
                                     <th style="background-color: #0d6efd; color: white;">Metros</th>
                                     <th style="background-color: #0d6efd; color: white;">Habitaciones</th>
-                                    <th style="background-color: #0d6efd; color: white;">Baños</th>
+                                    <th style="background-color: #0d6efd; color: white;">lavavo</th>
                                     <th style="background-color: #0d6efd; color: white;">Plantas</th>
                                     <th style="background-color: #0d6efd; color: white;">Calle</th>
                                     <th style="background-color: #0d6efd; color: white;">Numero</th>
@@ -73,7 +73,7 @@
                                     echo "<tr>";
                                     echo "<td>" . $viviendas[$i]['metros'] . "</td>";
                                     echo "<td>" . $viviendas[$i]['habitacion'] . "</td>";
-                                    echo "<td>" . $viviendas[$i]['baños'] . "</td>";
+                                    echo "<td>" . $viviendas[$i]['lavavo'] . "</td>";
                                     echo "<td>" . $viviendas[$i]['plantas'] . "</td>";
                                     echo "<td>" . $viviendas[$i]['calle'] . "</td>";
                                     echo "<td>" . $viviendas[$i]['numero'] . "</td>";

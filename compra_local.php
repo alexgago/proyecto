@@ -53,7 +53,7 @@
                                 <tr>
                                     <th style="background-color: #0d6efd; color: white;">Metros</th>
                                     <th style="background-color: #0d6efd; color: white;">Habitaciones</th>
-                                    <th style="background-color: #0d6efd; color: white;">Baños</th>
+                                    <th style="background-color: #0d6efd; color: white;">lavavo</th>
                                     <th style="background-color: #0d6efd; color: white;">Plantas</th>
                                     <th style="background-color: #0d6efd; color: white;">Calle</th>
                                     <th style="background-color: #0d6efd; color: white;">Numero</th>
@@ -68,7 +68,7 @@
                                     echo "<tr>";
                                     echo "<td>" . $locales[$i]['metros'] . "</td>";
                                     echo "<td>" . $locales[$i]['habitacion'] . "</td>";
-                                    echo "<td>" . $locales[$i]['baños'] . "</td>";
+                                    echo "<td>" . $locales[$i]['lavavo'] . "</td>";
                                     echo "<td>" . $locales[$i]['plantas'] . "</td>";
                                     echo "<td>" . $locales[$i]['calle'] . "</td>";
                                     echo "<td>" . $locales[$i]['numero'] . "</td>";

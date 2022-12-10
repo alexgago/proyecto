@@ -46,7 +46,7 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if(isset($_POST['subir_piso'])){
-            $con->insertar_vivienda($_POST['venta_alquiler'], $_POST['metros'], $_POST['baños'], $_POST['habitacion'], $_POST['plantas'], $_POST['portal'], $_POST['puerta'], $_POST['numero'], $_POST['escalera'], $_POST['calle'], $_POST['municipio'], $_POST['cod_postal'], $_POST['precio']);
+            $con->insertar_vivienda($_POST['venta_alquiler'], $_POST['metros'], $_POST['lavavo'], $_POST['habitacion'], $_POST['plantas'], $_POST['portal'], $_POST['puerta'], $_POST['numero'], $_POST['escalera'], $_POST['calle'], $_POST['municipio'], $_POST['cod_postal'], $_POST['precio']);
             header("Location: administrar_vivienda.php");
         }
     }
@@ -63,7 +63,7 @@
             <input type="number" id="habitaciones" class="form-control" name="habitaciones" required>
         </div>
         <div class="mb-3">
-            <label for="lavavo" class="form-label">Baños:</label>
+            <label for="lavavo" class="form-label">lavavo:</label>
             <input type="number" id="lavavo" class="form-control" name="lavavo">
         </div>
         <div class="mb-3">

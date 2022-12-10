@@ -172,12 +172,12 @@ class ConectaDB
             return false;
         }
     }
-    public function insertar_establecimiento($venta_alquiler, $metros, $baños, $habitacion, $plantas, $puerta, $calle, $municipio, $cod_postal, $precio)
+    public function insertar_establecimiento($venta_alquiler, $metros, $lavavo, $habitacion, $plantas, $puerta, $calle, $municipio, $cod_postal, $precio)
     {
-        $consulta = $this->conex->prepare("INSERT INTO establecimiento (venta_alquiler, mentros, baños, habitacion, plantas, numero, calle, municipio, codigo_postal, precio) VALUES(?,?,?,?,?,?,?,?,?,?)");
+        $consulta = $this->conex->prepare("INSERT INTO establecimiento (venta_alquiler, mentros, lavavo, habitacion, plantas, numero, calle, municipio, codigo_postal, precio) VALUES(?,?,?,?,?,?,?,?,?,?)");
         $consulta->bindParam(1, $venta_alquiler);
         $consulta->bindParam(2, $metros);
-        $consulta->bindParam(3, $baños);
+        $consulta->bindParam(3, $lavavo);
         $consulta->bindParam(4, $habitacion);
         $consulta->bindParam(5, $plantas);
         $consulta->bindParam(6, $puerta);
@@ -192,12 +192,12 @@ class ConectaDB
             
         }
     }
-    public function insertar_vivienda($venta_alquiler, $metros, $baños, $habitacion, $plantas, $portal, $puerta, $numero, $escalera, $calle, $municipio, $cod_postal, $precio)
+    public function insertar_vivienda($venta_alquiler, $metros, $lavavo, $habitacion, $plantas, $portal, $puerta, $numero, $escalera, $calle, $municipio, $cod_postal, $precio)
     {
-        $consulta = $this->conex->prepare("INSERT INTO vivienda (venta_alquiler, mentros, baños, habitacion, plantas, portal, puerta, numero, escalera, calle, municipio, codigo_postal, precio) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+        $consulta = $this->conex->prepare("INSERT INTO vivienda (venta_alquiler, mentros, lavavo, habitacion, plantas, portal, puerta, numero, escalera, calle, municipio, codigo_postal, precio) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
         $consulta->bindParam(1, $venta_alquiler);
         $consulta->bindParam(2, $metros);
-        $consulta->bindParam(3, $baños);
+        $consulta->bindParam(3, $lavavo);
         $consulta->bindParam(4, $habitacion);
         $consulta->bindParam(5, $plantas);
         $consulta->bindParam(6, $portal);
@@ -216,15 +216,15 @@ class ConectaDB
         }
     }
     //actualizar fecha inicio sesion
-    public function actualizarEstablecimeinto($id_local,$venta_alquiler, $metros, $baños, $habitacion, $plantas, $portal, $puerta, $escalera, $calle, $municipio, $cod_postal, $precio)
+    public function actualizarEstablecimeinto($id_local, $metros, $habitacion, $lavavo, $plantas, $calle, $numero,  $municipio, $cod_postal, $precio, $venta_alquiler)
     {
-        $consulta = $this->conex->prepare("UPDATE establecimiento set venta_alquiler=?, metros = ?, baños= ?, habitacion =?, plantas =?, numero=?, calle=?, municipio =?, codigo_postal=?, precio =? where id_local=?");
+        $consulta = $this->conex->prepare("UPDATE establecimiento set venta_alquiler=?, metros = ?, lavavo= ?, habitacion =?, plantas =?, numero=?, calle=?, municipio =?, codigo_postal=?, precio =? where id_local=?");
         $consulta->bindParam(1, $venta_alquiler);
         $consulta->bindParam(2, $metros);
-        $consulta->bindParam(3, $baños);
+        $consulta->bindParam(3, $lavavo);
         $consulta->bindParam(4, $habitacion);
         $consulta->bindParam(5, $plantas);
-        $consulta->bindParam(6, $puerta);
+        $consulta->bindParam(6, $numero);
         $consulta->bindParam(7, $calle);
         $consulta->bindParam(8, $municipio);
         $consulta->bindParam(9, $cod_postal);
@@ -237,12 +237,12 @@ class ConectaDB
             
         }
     }
-    public function actualizarVivienda($id_vivienda,$venta_alquiler, $metros, $baños, $habitacion, $plantas, $portal, $puerta,$numero, $escalera, $calle, $municipio, $cod_postal, $precio)
+    public function actualizarVivienda($id_vivienda, $metros,  $habitacion,$lavavo, $plantas,  $calle, $numero, $portal, $puerta, $escalera, $municipio, $cod_postal, $precio,$venta_alquiler)
     {
-        $consulta = $this->conex->prepare("UPDATE vivienda set venta_alquiler=?, metros = ?, baños= ?, habitacion =?, plantas =?, portal=?, puerta=? numero=?, calle=?, municipio =?, codigo_postal=?, precio =? where id_local=?");
+        $consulta = $this->conex->prepare("UPDATE vivienda set venta_alquiler=?, metros = ?, lavavo= ?, habitacion =?, plantas =?, portal=?, puerta=? numero=?, calle=?, municipio =?, codigo_postal=?, precio =? where id_local=?");
         $consulta->bindParam(1, $venta_alquiler);
         $consulta->bindParam(2, $metros);
-        $consulta->bindParam(3, $baños);
+        $consulta->bindParam(3, $lavavo);
         $consulta->bindParam(4, $habitacion);
         $consulta->bindParam(5, $plantas);
         $consulta->bindParam(6, $portal);

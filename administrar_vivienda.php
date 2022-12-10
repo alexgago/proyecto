@@ -40,28 +40,34 @@
         if (isset($_POST['nuevo_vivienda'])) {
             header("Location:subir_piso.php");
         }
+        if (isset($_POST['guardar'])) {
+            for ($i=0; $i < count($vivienda); $i++) { 
+                $con->actualizarVivienda($_POST["id_vivienda$i"], $_POST["metros$i"], $_POST["habitacion$i"], $_POST["lavavo$i"],$_POST["plantas$i"], $_POST["calle$i"], $_POST["numero$i"], $_POST["portal$i"], $_POST["puerta$i"], $_POST["escalera$i"], $_POST["municipio$i"], $_POST["cod_postal$i"], $_POST["precio$i"], $_POST["venta_alquiler$i"]);
+            }
+            header("Location: administrar_vivienda.php");
+        }
     }
     ?>
     <h1 class="text-center">Administrar Vivienda</h1>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#myModal3" style="float: right; margin-right: 20px; color: white; margin-top: 20px;">Modificar Vivienda</button>
-                </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#myModal3" style="float: right; margin-right: 20px; color: white; margin-top: 20px;">Modificar Vivienda</button>
             </div>
         </div>
+    </div>
     <form method="post" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
 
-        
+
         <div class="container caja" style="margin-top: 20px;">
             <div class="col-lg-12">
                 <div class="table-responsive">
-                <table class="table" id="tablaPrincipal" border="1">
-                <thead class="text-center">
+                    <table class="table" id="tablaPrincipal" border="1">
+                        <thead class="text-center">
                             <tr>
                                 <th style="background-color: #0d6efd; color: white;">Metros</th>
                                 <th style="background-color: #0d6efd; color: white;">Habitaciones</th>
-                                <th style="background-color: #0d6efd; color: white;">Baños</th>
+                                <th style="background-color: #0d6efd; color: white;">lavavo/th>
                                 <th style="background-color: #0d6efd; color: white;">Plantas</th>
                                 <th style="background-color: #0d6efd; color: white;">Portal</th>
                                 <th style="background-color: #0d6efd; color: white;">Escalera</th>
@@ -80,7 +86,7 @@
                                 echo "<tr>";
                                 echo "<td>" . $vivienda[$i]['metros'] . "</td>";
                                 echo "<td>" . $vivienda[$i]['habitacion'] . "</td>";
-                                echo "<td>" . $vivienda[$i]['baños'] . "</td>";
+                                echo "<td>" . $vivienda[$i]['lavavo'] . "</td>";
                                 echo "<td>" . $vivienda[$i]['plantas'] . "</td>";
                                 echo "<td>" . $vivienda[$i]['portal'] . "</td>";
                                 echo "<td>" . $vivienda[$i]['escalera'] . "</td>";
@@ -103,81 +109,87 @@
         <input type="submit" name="nuevo_vivienda" id="nuevo_vivienda" value="Nueva Vivienda">
     </form>
     <div class="modal" id="myModal3">
-            <div class="modal-dialog">
-                <div class="modal-content" style="width: 300% ; margin-left: -500px;">
-                    <form method="post" autocomplete="off">
-                        <!-- Modal body -->
-                        <div class="modal-body" style="font-size: 15px;">
-                            <h1 class="text-center" style="font-size: 18px;">MODIFICAR ESTABLECIMIENTOS</h1>
+        <div class="modal-dialog">
+            <div class="modal-content" style="width: 300% ; margin-left: -500px;">
+                <form method="post" autocomplete="off">
+                    <!-- Modal body -->
+                    <div class="modal-body" style="font-size: 15px;">
+                        <h1 class="text-center" style="font-size: 18px;">MODIFICAR ESTABLECIMIENTOS</h1>
+                        <div class="container caja">
                             <div class="container caja">
-                                <div class="container caja">
-                                    <div class="col-lg-12">
-                                        <div class="table-responsive">
-                                            <table class="table" id="tablaPrincipal2" border="1">
-                                                <thead class="text-center">
-                                                    <tr>
-                                                    <tr>
-                                                        <th style="background-color: #0d6efd; color: white;">Metros</th>
-                                                        <th style="background-color: #0d6efd; color: white;">Habitaciones</th>
-                                                        <th style="background-color: #0d6efd; color: white;">Baños</th>
-                                                        <th style="background-color: #0d6efd; color: white;">Plantas</th>
-                                                        <th style="background-color: #0d6efd; color: white;">Calle</th>
-                                                        <th style="background-color: #0d6efd; color: white;">Numero</th>
-                                                        <th style="background-color: #0d6efd; color: white;">Municipio</th>
-                                                        <th style="background-color: #0d6efd; color: white;">Codigo Postal</th>
-                                                        <th style="background-color: #0d6efd; color: white;">Precio</th>
-                                                        <th style="background-color: #0d6efd; color: white;">Venta/Alquiler</th>
-                                                    </tr>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class="text-center">
-                                                    <?php
-                                                    for ($i = 0; $i < count($datos); $i++) {
-                                                        echo "<tr>";
-                                                        echo "<td> <input type='text'name='id_rol$i' style = 'text-align: center;border: 0;width: 50px; background-color: white;' value='" . $datos[$i]['id_rol'] . "'disabled></td>";
-                                                        echo "<td> <input type='text'name='nombre_rol$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $datos[$i]['nombre_rol'] . "'></td>";
-                                                        echo "<td> <input type='text'name='grupoldap_rol$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $datos[$i]['grupoldap_rol'] . "'></td>";
-                                                        echo "<td> <input type='text'name='descripcion_rol$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $datos[$i]['descripcion_rol'] . "'></td>";
-                                                        echo "<td>";
-                                                        if ($datos[$i]['fecha_baja'] == NULL) {
-                                                            echo "<strong><p style = 'color:#0DA262'>ACTIVO</p></strong>";
-                                                        } else {
-                                                            echo "<strong><p style = 'color:red'>INACTIVO</p></strong>";
-                                                        }
-                                                        echo "</td>";
-                                                        echo "<td><button id='Activar" . $i . "' name='Activar" . $i . "' class='btn btn-success'>✓</button></td>";
-                                                        if ($datos[$i]['fecha_baja'] == NULL) {
-                                                            echo "<td><button id='Desactivar" . $i . "' name='Desactivar" . $i . "' class='btn btn-danger'>X</button></td>";
-                                                        } else {
-                                                            echo "<td><button id='Desactivar" . $i . "' name='Desactivar" . $i . "' class='btn btn-danger' disabled>X</button></td>";
-                                                        }
-                                                        echo "</td>";
-                                                        if ($datos[$i]['fecha_baja'] == NULL) {
-                                                            echo "<td><button id='Modificar" . $i . "' name='Modificar" . $i . "' class='btn btn-warning'><i class='fa fa-fw fa-pen'></i></button>
-                                                    </td>";
-                                                        } else {
-                                                            echo "<td><button id='Modificar" . $i . "' name='Modificar" . $i . "' class='btn btn-warning' disabled><i class='fa fa-fw fa-pen'></i></button>
-                                                    </td>";
-                                                        }
-                                                        echo "</tr>";
+                                <div class="col-lg-12">
+                                    <div class="table-responsive">
+                                        <table class="table" id="tablaPrincipal2" border="1">
+                                            <thead class="text-center">
+                                                <tr>
+                                                <tr>
+                                                    <th style="background-color: #0d6efd; color: white;">ID VIvienda</th>
+                                                    <th style="background-color: #0d6efd; color: white;">Metros</th>
+                                                    <th style="background-color: #0d6efd; color: white;">Habitaciones</th>
+                                                    <th style="background-color: #0d6efd; color: white;">lavavo/th>
+                                                    <th style="background-color: #0d6efd; color: white;">Plantas</th>
+                                                    <th style="background-color: #0d6efd; color: white;">Portal</th>
+                                                    <th style="background-color: #0d6efd; color: white;">Escalera</th>
+                                                    <th style="background-color: #0d6efd; color: white;">Puerta</th>
+                                                    <th style="background-color: #0d6efd; color: white;">Calle</th>
+                                                    <th style="background-color: #0d6efd; color: white;">Numero</th>
+                                                    <th style="background-color: #0d6efd; color: white;">Municipio</th>
+                                                    <th style="background-color: #0d6efd; color: white;">Codigo Postal</th>
+                                                    <th style="background-color: #0d6efd; color: white;">Precio</th>
+                                                    <th style="background-color: #0d6efd; color: white;">Venta/Alquiler</th>
+                                                </tr>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="text-center">
+                                                <?php
+                                                for ($i = 0; $i < count($vivienda); $i++) {
+                                                    echo "<tr>";
+                                                    echo "<td> <input type='text'name='id_vivienda$i' style = 'text-align: center;border: 0;width: 50px; background-color: white;' value='" . $vivienda[$i]['id_vivienda'] . "'disabled></td>";
+                                                    echo "<td> <input type='number' name='metros$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['metros'] . "'></td>";
+                                                    echo "<td> <input type='number' name='habitacion$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['habitacion'] . "'></td>";
+                                                    echo "<td> <input type='number' name='lavavo$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['lavavo'] . "'></td>";
+                                                    echo "<td> <input type='number' name='plantas$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['plantas'] . "'></td>";
+                                                    echo "<td> <input type='text' name='portal$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['`portal`'] . "'></td>";
+                                                    echo "<td> <input type='text' name='escalera$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['escalera'] . "'></td>";
+                                                    echo "<td> <input type='text' name='puerta$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['puerta'] . "'></td>";
+                                                    echo "<td> <input type='text' name='calle$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['calle'] . "'></td>";
+                                                    echo "<td> <input type='number' name='numero$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['numero'] . "'></td>";
+                                                    echo "<td> <input type='number' name='municipio$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['municipio'] . "'></td>";
+                                                    echo "<td> <input type='number' name='cod_postal$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['codigo_postal'] . "'></td>";
+                                                    echo "<td> <input type='number' name='precio$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['precio'] . "'></td>";
+                                                    echo "<td> 
+                                                            <select name='venta_alquiler'>
+                                                                <option value='venta'";
+                                                    if ($vivienda[$i]['venta_alquiler'] == "venta") {
+                                                        echo "selected";
                                                     }
-                                                    ?>
-                                                </tbody>
-                                            </table>
+                                                    echo ">Venta</option>
+                                                                <option value='alquiler'";
+                                                    if ($vivienda[$i]['venta_alquiler'] == "alquiler") {
+                                                        echo "selected";
+                                                    }
+                                                    echo ">Alquilar</option>
+                                                            </select>
+                                                        </td>";
+                                                    echo "</tr>";
+                                                }
+                                                ?>
+                                            </tbody>
+                                        </table>
 
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- Modal footer -->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
     <script src="jquery/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="datatables/datatables.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>

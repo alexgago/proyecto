@@ -72,7 +72,7 @@
             <input type="number" id="habitaciones" class="form-control" name="habitaciones" required>
         </div>
         <div class="mb-3">
-            <label for="lavavo" class="form-label">Baños:</label>
+            <label for="lavavo" class="form-label">lavavo:</label>
             <input type="number" id="lavavo" class="form-control" name="lavavo">
         </div>
         <div class="mb-3">
