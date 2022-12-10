@@ -35,13 +35,13 @@ session_start();
 		//validar los datos.
 		$errores = [];
 		$email=filtrado($_POST['email']);
-        $pas = filtrado($_POST['password']);
+        $dni = filtrado($_POST['dni']);
 		
 		if(empty($email)){
 					$errores[]="El email esta vacío";
 			}
-        if(empty($pas)){
-                $errores[]="La contrasña esta vacío";
+        if(empty($dni)){
+                $errores[]="EL DNI esta vacio";
         }
 		if(isset($_POST['registrar'])){
            header("Location:registrar.php");
@@ -52,10 +52,8 @@ session_start();
 	if ($_SERVER['REQUEST_METHOD']!='GET' && empty($errores)){
 		//procesa.
 		if (isset($_POST['enviar'])) {
-			echo $email;
-			echo $pas;
 			$con = ConectaDB::singleton();
-			$datos = $con->seleccionarUsuario($email);
+			$datos = $con->seleccionarUsuario($email, $dni);
 			$_SESSION['DNI'] = $datos['DNI'];
 			$_SESSION['nombre'] = $datos['nombre'];
 			$_SESSION['apellidos'] = $datos['pri_apellido']. " ". $datos['seg_apellido'];
@@ -81,8 +79,8 @@ session_start();
  			<p>Iniciar sesion</p>
             <label for="email">email:</label><br>
             <input type="text" name="email"><br><br>
-            <label for="password">Contraseña:</label><br>
-            <input type="password" name="password"><br><br>
+            <label for="DNI">Contraseña:</label><br>
+            <input type="text" name="dni"><br><br>
 	
             <input type="submit" name="registrar" href="registrar.php" value ="Si no tienes cuenta registrate">
             <input type = "submit" name="enviar" value = "Entrar">
