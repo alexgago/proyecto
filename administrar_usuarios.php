@@ -39,12 +39,13 @@
 
     ?>
     <h1 class="text-center">Administrar Usuarios</h1>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#myModal3" style="float: right; margin-right: 20px; color: white; margin-top: 20px;">Modificar Usuarios</button></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#myModal3" style="float: right; margin-right: 20px; color: white; margin-top: 20px;">Modificar Usuarios</button>
             </div>
         </div>
+    </div>
     <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
         <div class="container caja" style="margin-top: 20px;">
             <div class="col-lg-12">
@@ -88,6 +89,78 @@
             </div>
         </div>
     </form>
+    <div class="modal" id="myModal3">
+        <div class="modal-dialog">
+            <div class="modal-content" style="width: 300% ; margin-left: -500px;">
+                <form method="post" autocomplete="off">
+                    <!-- Modal body -->
+                    <div class="modal-body" style="font-size: 15px;">
+                        <h1 class="text-center" style="font-size: 18px;">MODIFICAR ESTABLECIMIENTOS</h1>
+                        <div class="container caja">
+                            <div class="container caja">
+                                <div class="col-lg-12">
+                                    <div class="table-responsive">
+                                        <table class="table" id="tablaPrincipal2" border="1">
+                                            <thead class="text-center">
+
+                                                <tr>
+                                                    <th style="background-color: #0d6efd; color: white;">DNI</th>
+                                                    <th style="background-color: #0d6efd; color: white;">Nombre</th>
+                                                    <th style="background-color: #0d6efd; color: white;">Primer apellido</th>
+                                                    <th style="background-color: #0d6efd; color: white;">Segundo apellido</th>
+                                                    <th style="background-color: #0d6efd; color: white;">Correo</th>
+                                                    <th style="background-color: #0d6efd; color: white;">Dirección</th>
+                                                    <th style="background-color: #0d6efd; color: white;">Telefono</th>
+                                                    <th style="background-color: #0d6efd; color: white;">Codigo Postal</th>
+                                                    <th style="background-color: #0d6efd; color: white;">Rol</th>
+                                                </tr>
+
+                                            </thead>
+                                            <tbody class="text-center">
+                                                <?php
+                                                for ($i = 0; $i < count($usuarios); $i++) {
+                                                    echo "<tr>";
+                                                    echo "<td> <input type='text'name='DNI$i' style = 'text-align: center;border: 0;width: 50px; background-color: white;' value='" . $usuarios[$i]['DNI'] . "'></td>";
+                                                    echo "<td> <input type='text' name='nombre$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $usuarios[$i]['nombre'] . "'></td>";
+                                                    echo "<td> <input type='text' name='pri_apellido$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $usuarios[$i]['pri_apellido'] . "'></td>";
+                                                    echo "<td> <input type='text' name='seg_apellido$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $usuarios[$i]['seg_apellido'] . "'></td>";
+                                                    echo "<td> <input type='text' name='correo$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $usuarios[$i]['correo'] . "'></td>";
+                                                    echo "<td> <input type='text' name='direccion$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $usuarios[$i]['direccion'] . "'></td>";
+                                                    echo "<td> <input type='text' name='telefono$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $usuarios[$i]['telefono'] . "'></td>";
+                                                    echo "<td> <input type='text' name='cod_postal$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $usuarios[$i]['codigo_postal'] . "'></td>";
+                                                   echo "<td> 
+                                                            <select name='rol'>
+                                                                <option value='Trabajador'";
+                                                    if ($usuarios[$i]['rol'] == "Trabajador") {
+                                                        echo "selected";
+                                                    }
+                                                    echo ">Trabajador</option>
+                                                                <option value='cliente'";
+                                                    if ($usuarios[$i]['rol'] == "cliente") {
+                                                        echo "selected";
+                                                    }
+                                                    echo ">Cliente</option>
+                                                            </select>
+                                                        </td>";
+                                                    echo "</tr>";
+                                                }
+                                                ?>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <script src="jquery/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="datatables/datatables.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>

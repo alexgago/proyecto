@@ -144,7 +144,7 @@
                                                 <?php
                                                 for ($i = 0; $i < count($vivienda); $i++) {
                                                     echo "<tr>";
-                                                    echo "<td> <input type='text'name='id_vivienda$i' style = 'text-align: center;border: 0;width: 50px; background-color: white;' value='" . $vivienda[$i]['id_vivienda'] . "'disabled></td>";
+                                                    echo "<td> <input type='text'name='id_vivienda$i' style = 'text-align: center;border: 0;width: 50px; background-color: white;' value='" . $vivienda[$i]['id_vivienda'] . "'></td>";
                                                     echo "<td> <input type='number' name='metros$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['metros'] . "'></td>";
                                                     echo "<td> <input type='number' name='habitacion$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['habitacion'] . "'></td>";
                                                     echo "<td> <input type='number' name='lavavo$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['lavavo'] . "'></td>";

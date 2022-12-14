@@ -133,7 +133,7 @@
                                                 <?php
                                                 for ($i = 0; $i < count($locales); $i++) {
                                                     echo "<tr>";
-                                                    echo "<td> <input type='text' name='id_local$i' style = 'text-align: center;border: 0;width: 50px; background-color: white;' value='" . $locales[$i]['id_local'] . "' readonly ></td>";
+                                                    echo "<td> <input type='text' name='id_local$i' style = 'text-align: center;border: 0;width: 50px; background-color: white;' value='" . $locales[$i]['id_local'] . "'></td>";
                                                     echo "<td> <input type='number' name='metros$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $locales[$i]['metros'] . "'></td>";
                                                     echo "<td> <input type='number' name='habitacion$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $locales[$i]['habitacion'] . "'></td>";
                                                     echo "<td> <input type='number' name='lavavo$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $locales[$i]['lavavo'] . "'></td>";
