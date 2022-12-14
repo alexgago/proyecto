@@ -42,8 +42,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#myModal3" style="float: right; margin-right: 20px; color: white; margin-top: 20px;">Modificar Usuario</button>
-                </div>
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#myModal3" style="float: right; margin-right: 20px; color: white; margin-top: 20px;">Modificar Usuarios</button></div>
             </div>
         </div>
     <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
