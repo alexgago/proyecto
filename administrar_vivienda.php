@@ -149,7 +149,7 @@
                                                     echo "<td> <input type='number' name='habitacion$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['habitacion'] . "'></td>";
                                                     echo "<td> <input type='number' name='lavavo$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['lavavo'] . "'></td>";
                                                     echo "<td> <input type='number' name='plantas$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['plantas'] . "'></td>";
-                                                    echo "<td> <input type='text' name='portal$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['`portal`'] . "'></td>";
+                                                    echo "<td> <input type='text' name='portal$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['portal'] . "'></td>";
                                                     echo "<td> <input type='text' name='escalera$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['escalera'] . "'></td>";
                                                     echo "<td> <input type='text' name='puerta$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['puerta'] . "'></td>";
                                                     echo "<td> <input type='text' name='calle$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['calle'] . "'></td>";

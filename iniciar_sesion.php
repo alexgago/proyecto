@@ -79,7 +79,7 @@ session_start();
  			<p>Iniciar sesion</p>
             <label for="email">email:</label><br>
             <input type="text" name="email"><br><br>
-            <label for="DNI">Contraseña:</label><br>
+            <label for="DNI">DNI:</label><br>
             <input type="text" name="dni"><br><br>
 	
             <input type="submit" name="registrar" href="registrar.php" value ="Si no tienes cuenta registrate">
