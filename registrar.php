@@ -41,32 +41,56 @@
 
     <?php
     session_start();
-    include_once("conexion/conexion.php");
-
-    if (isset($_SESSION['email'])) {
-        if ($_SESSION['rol'] == "Trabajador") {
-            include_once("otros/cabeceraTrabajador.php");
-        } else {
-            include_once("otros/cabeceraUsuario.php");
-        }
-    } else {
-        include_once("otros/cabeceraprincipal.php");
-    }
-    include_once("otros/funciones_variables.php");
+    include_once 'otros/funciones_variables.php';
+    include_once("otros/cabeceraprincipal.php");
+	include_once("conexion/conexion.php");
     $con = ConectaDB::singleton();
     $errores = [];
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        //print_r($_POST);
+        print_r($_FILES);
         if (isset($_POST['registro'])) {
-            if ($con->comprobarCorreo($_POST['email']) == True) {
+            if ($con->comprobarCorreo($_POST['email']) != false) {
                 $errores[] = "ESE CORREO YA ESTA EN USO";
-            }elseif ($con->comprobarDNI($_POST['DNI']) == True) {
+            }elseif ($con->comprobarDNI($_POST['DNI']) != false) {
                 $errores[] = "ESE DNI YA ESTA EN USO";
+            }else {
+                if ($_FILES['imagen'] == null) {
+                    $con->insertar_usuario($_POST['DNI'], $_POST['nombre'],$_POST['primer_ape'], $_POST['segundo_ape'],$_POST['email'], $_POST['direccion'], $_POST['telefono'], $_POST['cod_postal'], "Usuario", "");
+                }else {
+                    $tipoArchivo = $_FILES['imagen']['type'];
+                    $nombreArchivo = $_FILES['imagen']['name'];
+                    $tamanoArchivo = $_FILES['imagen']['size'];
+                    $imagenSubida = fopen($_FILES['imagen']['tmp_name'], 'r');
+                    $binariosImagen = fread($imagenSubida, $tamanoArchivo);
+                    $con->insertar_usuario($_POST['DNI'], $_POST['nombre'],$_POST['primer_ape'], $_POST['segundo_ape'],$_POST['email'], $_POST['direccion'], $_POST['telefono'], $_POST['cod_postal'], "Usuario", $nombreArchivo);
+                    $con->insertarimagen_usario($_POST['DNI'], $nombreArchivo, $tipoArchivo, $binariosImagen);
+                    
+                }
+                
             }
+            
         }
     }
+    if ($_SERVER['REQUEST_METHOD']!='GET' && empty($errores)){
+		//procesa.
+		if (isset($_POST['registro'])) {
+			
+			$_SESSION['DNI'] = $_POST['DNI'];
+			$_SESSION['nombre'] = $_POST['nombre'];
+			$_SESSION['apellidos'] = $_POST['primer_ape']. " ". $_POST['segundo_ape'];
+			$_SESSION['dir'] = $_POST['direccion'];
+			$_SESSION['tel'] = $_POST['telefono'];
+			$_SESSION['cod_postal'] = $_POST['cod_postal'];
+			$_SESSION['rol'] = "Usuario";
+            $_SESSION["email"] = $_POST['email'];
+			header("Location:inicio.php");
+        }
+  
 
+	}
     ?>
-    <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+    <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>" enctype="multipart/form-data">
         <H1>Registro de usuario</H1>
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre:</label>
@@ -82,7 +106,7 @@
         </div>
         <div class="mb-3">
             <label for="nombre" class="form-label">DNI:</label>
-            <input type="text" id="nombre" class="form-control" name="nombre" required>
+            <input type="text" id="DNI" class="form-control" name="DNI" required>
             <div class="error">
                 <?php if (!empty($errores)) {
                     echo implode('<br>', $errores);
@@ -109,7 +133,7 @@
         </div>
         <div class="mb-3">
             <label for="cod_postal" class="form-label">Código postal:</label>
-            <input type="text" id="cod_postal" minlength="5" maxlength="5" pattern="[0-5][0-9][0-9]{3}" class="form-control" name="telefono" title="El codigo postal debe empezar entre 0 y 5" class="form-control" name="cod_postal" required>
+            <input type="text" id="cod_postal" minlength="5" maxlength="5" pattern="[0-5][0-9][0-9]{3}" class="form-control" name="cod_postal" title="El codigo postal debe empezar entre 0 y 5" class="form-control" name="cod_postal" required>
         </div>
         <div class="mb-3">
             <label for="imagen" class="form-label">Imagen del usuario: (opcional)</label>

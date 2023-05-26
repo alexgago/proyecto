@@ -37,7 +37,7 @@
         include_once("otros/cabeceraprincipal.php");
     }
     $conexion = ConectaDB::singleton();
-    $viviendas = $conexion->seleccionar_vivienda('venta');
+    $vivienda = $conexion->seleccionar_vivienda('venta');
     ?>
     <br>
     <br>
@@ -50,44 +50,60 @@
             <div class="container caja" style="margin-top: 20px;">
                 <div class="col-lg-12">
                     <div class="table-responsive">
-                        <table class="table" id="tablaPrincipal" border="1">
-                            <thead class="text-center">
-                                <tr>
-                                    <th style="background-color: #0d6efd; color: white;">Metros</th>
-                                    <th style="background-color: #0d6efd; color: white;">Habitaciones</th>
-                                    <th style="background-color: #0d6efd; color: white;">lavavo</th>
-                                    <th style="background-color: #0d6efd; color: white;">Plantas</th>
-                                    <th style="background-color: #0d6efd; color: white;">Calle</th>
-                                    <th style="background-color: #0d6efd; color: white;">Numero</th>
-                                    <th style="background-color: #0d6efd; color: white;">Escalera</th>
-                                    <th style="background-color: #0d6efd; color: white;">Puerta</th>
-                                    <th style="background-color: #0d6efd; color: white;">Municipio</th>
-                                    <th style="background-color: #0d6efd; color: white;">Codigo Postal</th>
-                                    <th style="background-color: #0d6efd; color: white;">Precio</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-center">
-                            <tbody class="text-center">
-                                <?php
-                                for ($i = 0; $i < count($viviendas); $i++) {
-                                    echo "<tr>";
-                                    echo "<td>" . $viviendas[$i]['metros'] . "</td>";
-                                    echo "<td>" . $viviendas[$i]['habitacion'] . "</td>";
-                                    echo "<td>" . $viviendas[$i]['lavavo'] . "</td>";
-                                    echo "<td>" . $viviendas[$i]['plantas'] . "</td>";
-                                    echo "<td>" . $viviendas[$i]['calle'] . "</td>";
-                                    echo "<td>" . $viviendas[$i]['numero'] . "</td>";
-                                    echo "<td>" . $viviendas[$i]['escalera'] . "</td>";
-                                    echo "<td>" . $viviendas[$i]['puerta'] . "</td>";
-                                    echo "<td>" . $viviendas[$i]['municipio'] . "</td>";
-                                    echo "<td>" . $viviendas[$i]['codigo_postal'] . "</td>";
-                                    echo "<td>" . $viviendas[$i]['precio'] . "</td>";
-                                    echo "</tr>";
-                                }
-                                ?>
-                            </tbody>
-                            </tbody>
-                        </table>
+                    <table class="table" id="tablaPrincipal" border="1">
+                        <thead class="text-center">
+                            <tr>
+                                <th style="background-color: #0d6efd; color: white;">Metros</th>
+                                <th style="background-color: #0d6efd; color: white;">Habitaciones</th>
+                                <th style="background-color: #0d6efd; color: white;">lavavo</th>
+                                <th style="background-color: #0d6efd; color: white;">Plantas</th>
+                                <th style="background-color: #0d6efd; color: white;">Portal</th>
+                                <th style="background-color: #0d6efd; color: white;">Escalera</th>
+                                <th style="background-color: #0d6efd; color: white;">Puerta</th>
+                                <th style="background-color: #0d6efd; color: white;">Calle</th>
+                                <th style="background-color: #0d6efd; color: white;">Numero</th>
+                                <th style="background-color: #0d6efd; color: white;">Municipio</th>
+                                <th style="background-color: #0d6efd; color: white;">Codigo Postal</th>
+                                <th style="background-color: #0d6efd; color: white;">Precio</th>
+                                <th style="background-color: #0d6efd; color: white;">Imagen de la vivienda</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+                            <?php
+                            for ($i = 0; $i < count($vivienda); $i++) {
+                                echo "<tr>";
+                                echo "<td>" . $vivienda[$i]['metros'] . "</td>";
+                                echo "<td>" . $vivienda[$i]['habitacion'] . "</td>";
+                                echo "<td>" . $vivienda[$i]['lavavo'] . "</td>";
+                                echo "<td>" . $vivienda[$i]['plantas'] . "</td>";
+                                echo "<td>" . $vivienda[$i]['portal'] . "</td>";
+                                echo "<td>" . $vivienda[$i]['escalera'] . "</td>";
+                                echo "<td>" . $vivienda[$i]['puerta'] . "</td>";
+                                echo "<td>" . $vivienda[$i]['calle'] . "</td>";
+                                echo "<td>" . $vivienda[$i]['numero'] . "</td>";
+                                echo "<td>" . $vivienda[$i]['municipio'] . "</td>";
+                                echo "<td>" . $vivienda[$i]['codigo_postal'] . "</td>";
+                                echo "<td>" . $vivienda[$i]['precio'] . "</td>";
+                            ?>
+                                <td>
+                                    <?php $num_imagenes = $conexion->seleccionarimagenesvivienda($vivienda[$i]["id_vivienda"]);
+                                    
+                                    if ($num_imagenes != null) {
+                                        $max = $num_imagenes['COUNT(id_vivienda)']; 
+                                        $num = rand(1, $max);
+                                            $imagen= $conexion->seleccionarfoto_vivienda($num, $vivienda[$i]["id_vivienda"]);
+                                            ?>
+                                    
+                                        <img src="data:<?php echo $imagen[0]['tipo']; ?>;base64,<?php echo  base64_encode($imagen[0]["imagen"]); ?>" class="card-img-top" alt="...">
+                                    <?php } ?>
+                                </td>
+                            <?php
+                                echo "</tr>";
+                            
+                            }
+                            ?>
+                        </tbody>
+                    </table>
 
                     </div>
                 </div>

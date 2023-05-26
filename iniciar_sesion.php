@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
 
@@ -25,7 +25,7 @@
 <body>
 
 <?php
-session_start();
+	session_start();
 	include_once 'otros/funciones_variables.php';
     include_once("otros/cabeceraprincipal.php");
 	include_once("conexion/conexion.php");
@@ -89,11 +89,11 @@ session_start();
 		if (!empty($errores))  {
 			echo implode('<br>', $errores);
 		}
-		if (!empty($_POST)){
-			session_start();
+		/*if (!empty($_POST)){
+			//session_start();
 			$_SESSION["email"] = $email;
 
-		 }
+		 }*/
 		
 		}
 	?>

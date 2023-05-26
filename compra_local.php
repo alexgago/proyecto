@@ -60,6 +60,7 @@
                                     <th style="background-color: #0d6efd; color: white;">Municipio</th>
                                     <th style="background-color: #0d6efd; color: white;">Codigo Postal</th>
                                     <th style="background-color: #0d6efd; color: white;">Precio</th>
+                                    <th style="background-color: #0d6efd; color: white;">imagen del establecimiento</th>
                                 </tr>
                             </thead>
                             <tbody class="text-center">
@@ -75,6 +76,20 @@
                                     echo "<td>" . $locales[$i]['municipio'] . "</td>";
                                     echo "<td>" . $locales[$i]['codigo_postal'] . "</td>";
                                     echo "<td>" . $locales[$i]['precio'] . "</td>";
+                                ?>
+                                    <td>
+                                        <?php $num_imagenes = $conexion->seleccionarimageneslocal($locales[$i]["id_local"]);
+
+                                        if ($num_imagenes != null) {
+                                            $max = $num_imagenes['COUNT(id_local)'];
+                                            $num = rand(1, $max);
+                                            $imagen = $conexion->seleccionarfoto_vivienda($num, $locales[$i]["id_local"]);
+                                        ?>
+
+                                            <img src="data:<?php echo $imagen[0]['tipo']; ?>;base64,<?php echo  base64_encode($imagen[0]["imagen"]); ?>" class="card-img-top" alt="...">
+                                        <?php } ?>
+                                    </td>
+                                <?php
                                     echo "</tr>";
                                 }
                                 ?>

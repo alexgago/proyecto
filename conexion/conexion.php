@@ -24,8 +24,8 @@ class ConectaDB
     {
         $this->conex = null;
     }
-   
-   
+
+
 
     public function eliminar_acentos($cadena)
     {
@@ -74,11 +74,11 @@ class ConectaDB
 
         return $cadena;
     }
-    public function seleccionarUsuario($correo, $dni)
+    public function seleccionarUsuario($correo)
     {
-        $consulta = $this->conex->prepare("select * from usuario where correo=? and dni =?");
+        $consulta = $this->conex->prepare("select * from usuario where correo=?");
         $consulta->bindParam(1, $correo);
-        $consulta->bindParam(2, $dni);
+        //$consulta->bindParam(2, $dni);
         if ($consulta->execute()) {
             $datos = $consulta->fetch(PDO::FETCH_ASSOC);
             return $datos;
@@ -91,7 +91,11 @@ class ConectaDB
         $consulta = $this->conex->prepare("select correo from usuario where correo=?");
         $consulta->bindParam(1, $correo);
         if ($consulta->execute()) {
-            return true;
+            if ($consulta->fetch(PDO::FETCH_ASSOC)) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
@@ -101,7 +105,11 @@ class ConectaDB
         $consulta = $this->conex->prepare("select dni from usuario where dni=?");
         $consulta->bindParam(1, $dni);
         if ($consulta->execute()) {
-            return true;
+            if ($consulta->fetch(PDO::FETCH_ASSOC)) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
@@ -138,7 +146,7 @@ class ConectaDB
     }
     public function seleccionarTrabajador($rol)
     {
-        $consulta = $this->conex->prepare("select nombre, pri_apellido, seg_apellido, correo, imagen_usu from usuario where rol = ?");
+        $consulta = $this->conex->prepare("select * from usuario where rol = ?");
         $consulta->bindParam(1, $rol);
         if ($consulta->execute()) {
             $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
@@ -150,7 +158,7 @@ class ConectaDB
     public function administrar_Local()
     {
         $consulta = $this->conex->prepare("select * from establecimiento");
-        
+
         if ($consulta->execute()) {
             $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
             return $datos;
@@ -161,7 +169,7 @@ class ConectaDB
     public function administrar_vivienda()
     {
         $consulta = $this->conex->prepare("select * from vivienda");
-        
+
         if ($consulta->execute()) {
             $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
             return $datos;
@@ -191,6 +199,48 @@ class ConectaDB
             return false;
         }
     }
+    public function seleccionarfoto($dni)
+    {
+        $consulta = $this->conex->prepare("select * from imagen_usuario where DNI = ?");
+        $consulta->bindParam(1, $dni);
+        if ($consulta->execute()) {
+            $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            return $datos;
+        } else {
+            return false;
+        }
+    }
+    public function seleccionarfoto_vivienda($id_foto, $id_vivienda)
+    {
+        $consulta = $this->conex->prepare("select * from imagenes_vivienda where id_foto = ? and id_vivienda = ?");
+        $consulta->bindParam(1, $id_foto);
+        $consulta->bindParam(2, $id_vivienda);
+        if ($consulta->execute()) {
+            $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            return $datos;
+        } else {
+            return false;
+        }
+    }
+    public function insertar_usuario($dni, $nombre, $pri_apellido, $seg_apellido, $correo, $direccion, $telefono, $cod_postal, $rol, $imagen)
+    {
+        $consulta = $this->conex->prepare("INSERT INTO usuario (DNI, nombre, pri_apellido, seg_apellido, correo, direccion, telefono, codigo_postal, rol, imagen_usu) VALUES(?,?,?,?,?,?,?,?,?,?)");
+        $consulta->bindParam(1, $dni);
+        $consulta->bindParam(2, $nombre);
+        $consulta->bindParam(3, $pri_apellido);
+        $consulta->bindParam(4, $seg_apellido);
+        $consulta->bindParam(5, $correo);
+        $consulta->bindParam(6, $direccion);
+        $consulta->bindParam(7, $telefono);
+        $consulta->bindParam(8, $cod_postal);
+        $consulta->bindParam(9, $rol);
+        $consulta->bindParam(10, $imagen);
+        if (!$consulta->execute()) {
+            return "fallo en la consulta";
+        } else {
+            return "exito";
+        }
+    }
     public function insertar_establecimiento($venta_alquiler, $metros, $lavavo, $habitacion, $plantas, $puerta, $calle, $municipio, $cod_postal, $precio)
     {
         $consulta = $this->conex->prepare("INSERT INTO establecimiento (venta_alquiler, metros, lavavo, habitacion, plantas, numero, calle, municipio, codigo_postal, precio) VALUES(?,?,?,?,?,?,?,?,?,?)");
@@ -208,7 +258,6 @@ class ConectaDB
             return "fallo en la consulta";
         } else {
             return "exito";
-            
         }
     }
     public function insertar_vivienda($venta_alquiler, $metros, $lavavo, $habitacion, $plantas, $portal, $puerta, $numero, $escalera, $calle, $municipio, $cod_postal, $precio)
@@ -231,10 +280,29 @@ class ConectaDB
             return "fallo en la consulta";
         } else {
             return "exito";
-            
         }
     }
-    //actualizar fecha inicio sesion
+
+    public function actualizarUsuario($dni, $nombre, $pri_apellido, $seg_apellido, $correo, $direccion, $telefono,  $cod_postal, $rol)
+    {
+        $consulta = $this->conex->prepare("UPDATE usuario set dni=?, nombre = ?, pri_apellido= ?, seg_apellido =?, correo =?, direccion=?, telefono=?, codigo_postal=?, rol =? where dni=?");
+        $consulta->bindParam(1, $dni);
+        $consulta->bindParam(2, $nombre);
+        $consulta->bindParam(3, $pri_apellido);
+        $consulta->bindParam(4, $seg_apellido);
+        $consulta->bindParam(5, $correo);
+        $consulta->bindParam(6, $direccion);
+        $consulta->bindParam(7, $telefono);
+        $consulta->bindParam(8, $cod_postal);
+        $consulta->bindParam(9, $rol);
+        $consulta->bindParam(10, $dni);
+        if (!$consulta->execute()) {
+            return "fallo en la consulta";
+        } else {
+            return "exito";
+        }
+    }
+
     public function actualizarEstablecimeinto($id_local, $metros, $habitacion, $lavavo, $plantas, $calle, $numero,  $municipio, $cod_postal, $precio, $venta_alquiler)
     {
         $consulta = $this->conex->prepare("UPDATE establecimiento set venta_alquiler=?, metros = ?, lavavo= ?, habitacion =?, plantas =?, numero=?, calle=?, municipio =?, codigo_postal=?, precio =? where id_local=?");
@@ -253,10 +321,32 @@ class ConectaDB
             return "fallo en la consulta";
         } else {
             return "exito";
-            
         }
     }
-    public function actualizarVivienda($id_vivienda, $metros,  $habitacion,$lavavo, $plantas,  $calle, $numero, $portal, $puerta, $escalera, $municipio, $cod_postal, $precio,$venta_alquiler)
+    public function seleccionarimageneslocal($id_local)
+    {
+        $consulta = $this->conex->prepare("SELECT COUNT(id_local) FROM `imagenes_establecimientos` WHERE id_local = ?");
+        $consulta->bindParam(1, $id_local);
+        if ($consulta->execute()) {
+            $datos = $consulta->fetch(PDO::FETCH_ASSOC);
+            return $datos;
+        } else {
+            return false;
+        }
+    }
+    public function seleccionarimagenesvivienda($id_vivienda)
+    {
+        $consulta = $this->conex->prepare("SELECT COUNT(id_vivienda) FROM imagenes_vivienda WHERE id_vivienda = ?");
+        $consulta->bindParam(1, $id_vivienda);
+        if ($consulta->execute()) {
+            $datos = $consulta->fetch(PDO::FETCH_ASSOC);
+            return $datos;
+        } else {
+            return false;
+        }
+    }
+
+    public function actualizarVivienda($id_vivienda, $metros,  $habitacion, $lavavo, $plantas,  $calle, $numero, $portal, $puerta, $escalera, $municipio, $cod_postal, $precio, $venta_alquiler)
     {
         $consulta = $this->conex->prepare("UPDATE vivienda set venta_alquiler=?, metros = ?, lavavo= ?, habitacion =?, plantas =?, portal=?, puerta=? numero=?, calle=?, municipio =?, codigo_postal=?, precio =? where id_local=?");
         $consulta->bindParam(1, $venta_alquiler);
@@ -277,34 +367,49 @@ class ConectaDB
             return "fallo en la consulta";
         } else {
             return "exito";
-            
         }
     }
-    public function insertarimagenvivienda($id_foto, $id_vivienda, $url){
-        $consulta = $this->conex->prepare("INSERT INTO imagenes_viviendas (id_foto, id_vivienda, imagenes) VALUES(?,?,?)");
+    public function insertarimagenvivienda($id_foto, $id_vivienda, $nombre, $imagen, $tipo)
+    {
+        $consulta = $this->conex->prepare("INSERT INTO imagenes_vivienda (id_foto, id_vivienda, nombre_image, imagen, tipo) VALUES(?,?,?,?,?)");
         $consulta->bindParam(1, $id_foto);
         $consulta->bindParam(2, $id_vivienda);
-        $consulta->bindParam(3, $url);
-        
+        $consulta->bindParam(3, $nombre);
+        $consulta->bindParam(4, $imagen);
+        $consulta->bindParam(5, $tipo);
+
         if (!$consulta->execute()) {
             return "fallo en la consulta";
         } else {
             return "exito";
-            
         }
     }
-    public function insertarimagenlocal($id_foto, $id_local, $url){
-        $consulta = $this->conex->prepare("INSERT INTO imagenes_establecimiento (id_foto, id_local, imagenes) VALUES(?,?,?)");
+    public function insertarimagenlocal($id_foto, $id_local, $nombre, $imagen, $tipo)
+    {
+        $consulta = $this->conex->prepare("INSERT INTO imagenes_establecimiento (id_foto, id_local, nombre_image, imagen, tipo) VALUES(?,?,?,?,?)");
         $consulta->bindParam(1, $id_foto);
         $consulta->bindParam(2, $id_local);
-        $consulta->bindParam(3, $url);
-        
+        $consulta->bindParam(3, $nombre);
+        $consulta->bindParam(4, $imagen);
+        $consulta->bindParam(5, $tipo);
+
         if (!$consulta->execute()) {
             return "fallo en la consulta";
         } else {
             return "exito";
-            
         }
     }
-
+    public function insertarimagen_usario($dni, $nombre, $tipo, $imagen)
+    {
+        $consulta = $this->conex->prepare("INSERT INTO imagen_usuario (DNI, nombre, tipo, imagen) VALUES(?,?,?,?)");
+        $consulta->bindParam(1, $dni);
+        $consulta->bindParam(2, $nombre);
+        $consulta->bindParam(3, $tipo);
+        $consulta->bindParam(4, $imagen);
+        if (!$consulta->execute()) {
+            return "fallo en la consulta";
+        } else {
+            return "exito";
+        }
+    }
 }

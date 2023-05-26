@@ -59,17 +59,20 @@
             $con->insertar_establecimiento($_POST['venta_alquiler'], $_POST['metros'], $_POST['lavavo'], $_POST['habitacion'], $_POST['plantas'], $_POS['portal'],$_POST['puerta'], $_POST['numero'], $_POST['escalera'], $_POST['calle'], $_POST['municipio'], (int)($_POST['cod_postal']),(float)$_POST['precio']);
             $max = $con->selecionarIdlocalMAx();
             print_r($max);
-            for ($i=0; $i < count($_POST['imagen']); $i++) { 
+            for ($i=0; $i < count($_FILES['imagen']['name']); $i++) { 
                 $id_foto = $i+1;
-                $numero = $max['max(id_local)']."_". $id_foto.".jpg";
-                $nombre_nuevo = rename($_POST['imagen'][$i], $numero);
-                $con->insertarimagenlocal($id_foto, $max['max(id_local)'], $numero);
+                $nombre_imagen = $max['max(id_vivienda)']."_". $id_foto;
+                $tipoArchivo = $_FILES['imagen']['type'][$i];
+                $tamanoArchivo = $_FILES['imagen']['size'][$i];
+                $imagenSubida = fopen($_FILES['imagen']['tmp_name'][$i], 'r');
+                $binariosImagen = fread($imagenSubida, $tamanoArchivo);
+                $con->insertarimagenlocal($id_foto, $max['max(id_local)'], $nombre_imagen, $binariosImagen, $tipoArchivo);
             }
             header("location: administrar_local.php");
         }
     }
     ?>
-    <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+    <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>" enctype="multipart/form-data">
         <H1>Subir local</H1>
         <div class="mb-3">
             <label for="metros" class="form-label">Metros</label>

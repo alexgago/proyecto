@@ -14,7 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         .sin_permisos {
-            display: none;
+           display: none;
         }
     </style>
 </head>
@@ -41,8 +41,12 @@
             header("Location:subir_piso.php");
         }
         if (isset($_POST['guardar'])) {
-            for ($i=0; $i < count($vivienda); $i++) { 
-                //$con->actualizarVivienda($_POST["id_vivienda$i"], $_POST["metros$i"], $_POST["habitacion$i"], $_POST["lavavo$i"],$_POST["plantas$i"], $_POST["calle$i"], $_POST["numero$i"], $_POST["portal$i"], $_POST["puerta$i"], $_POST["escalera$i"], $_POST["municipio$i"], $_POST["cod_postal$i"], $_POST["precio$i"], $_POST["venta_alquiler$i"]);
+            //$vivienda = $con->administrar_vivienda();
+            echo "<pre>";
+            print_r($_POST);
+            echo "</pre>";
+            for ($i = 0; $i < count($vivienda); $i++) {
+                $con->actualizarVivienda($_POST["id_vivienda$i"], $_POST["metros$i"], $_POST["habitacion$i"], $_POST["lavavo$i"],$_POST["plantas$i"], $_POST["calle$i"], $_POST["numero$i"], $_POST["portal$i"], $_POST["puerta$i"], $_POST["escalera$i"], $_POST["municipio$i"], $_POST["cod_postal$i"], $_POST["precio$i"], $_POST["venta_alquiler$i"]);
             }
             header("Location: administrar_vivienda.php");
         }
@@ -67,7 +71,7 @@
                             <tr>
                                 <th style="background-color: #0d6efd; color: white;">Metros</th>
                                 <th style="background-color: #0d6efd; color: white;">Habitaciones</th>
-                                <th style="background-color: #0d6efd; color: white;">lavavo/th>
+                                <th style="background-color: #0d6efd; color: white;">lavavo</th>
                                 <th style="background-color: #0d6efd; color: white;">Plantas</th>
                                 <th style="background-color: #0d6efd; color: white;">Portal</th>
                                 <th style="background-color: #0d6efd; color: white;">Escalera</th>
@@ -78,6 +82,7 @@
                                 <th style="background-color: #0d6efd; color: white;">Codigo Postal</th>
                                 <th style="background-color: #0d6efd; color: white;">Precio</th>
                                 <th style="background-color: #0d6efd; color: white;">Venta/Alquiler</th>
+                                <th style="background-color: #0d6efd; color: white;">Imagen de la vivienda</th>
                             </tr>
                         </thead>
                         <tbody class="text-center">
@@ -97,6 +102,20 @@
                                 echo "<td>" . $vivienda[$i]['codigo_postal'] . "</td>";
                                 echo "<td>" . $vivienda[$i]['precio'] . "</td>";
                                 echo "<td>" . $vivienda[$i]['venta_alquiler'] . "</td>";
+                            ?>
+                                <td>
+                                    <?php $num_imagenes = $con->seleccionarimagenesvivienda($vivienda[$i]["id_vivienda"]);
+
+                                    if ($num_imagenes != null) {
+                                        $max = $num_imagenes['COUNT(id_vivienda)'];
+                                        $num = rand(1, $max);
+                                        $imagen = $con->seleccionarfoto_vivienda($num, $vivienda[$i]["id_vivienda"]);
+                                    ?>
+
+                                        <img src="data:<?php echo $imagen[0]['tipo']; ?>;base64,<?php echo  base64_encode($imagen[0]["imagen"]); ?>" class="card-img-top" alt="...">
+                                    <?php } ?>
+                                </td>
+                            <?php
                                 echo "</tr>";
                             }
                             ?>
@@ -122,11 +141,10 @@
                                         <table class="table" id="tablaPrincipal2" border="1">
                                             <thead class="text-center">
                                                 <tr>
-                                                <tr>
                                                     <th style="background-color: #0d6efd; color: white;">ID VIvienda</th>
                                                     <th style="background-color: #0d6efd; color: white;">Metros</th>
                                                     <th style="background-color: #0d6efd; color: white;">Habitaciones</th>
-                                                    <th style="background-color: #0d6efd; color: white;">lavavo/th>
+                                                    <th style="background-color: #0d6efd; color: white;">lavavo</th>
                                                     <th style="background-color: #0d6efd; color: white;">Plantas</th>
                                                     <th style="background-color: #0d6efd; color: white;">Portal</th>
                                                     <th style="background-color: #0d6efd; color: white;">Escalera</th>
@@ -138,13 +156,17 @@
                                                     <th style="background-color: #0d6efd; color: white;">Precio</th>
                                                     <th style="background-color: #0d6efd; color: white;">Venta/Alquiler</th>
                                                 </tr>
-                                                </tr>
+                                                
                                             </thead>
                                             <tbody class="text-center">
                                                 <?php
+                                                echo "<pre>";
+                                                print_r($vivienda);
+                                                echo "</pre>";
+
                                                 for ($i = 0; $i < count($vivienda); $i++) {
                                                     echo "<tr>";
-                                                    echo "<td> <input type='text'name='id_vivienda$i' style = 'text-align: center;border: 0;width: 50px; background-color: white;' value='" . $vivienda[$i]['id_vivienda'] . "'></td>";
+                                                    echo "<td> " . $vivienda[$i]['id_vivienda'] ."</td>";
                                                     echo "<td> <input type='number' name='metros$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['metros'] . "'></td>";
                                                     echo "<td> <input type='number' name='habitacion$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['habitacion'] . "'></td>";
                                                     echo "<td> <input type='number' name='lavavo$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['lavavo'] . "'></td>";
@@ -184,7 +206,7 @@
                     </div>
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                    <input type="submit" name="guardar" id="guardar" value="guardar">
+                        <input type="submit" name="guardar" id="guardar" value="guardar">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
                     </div>
                 </form>

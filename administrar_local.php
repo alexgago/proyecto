@@ -41,8 +41,8 @@
             header("Location:subir_local.php");
         }
         if (isset($_POST['guardar'])) {
-            for ($i=0; $i < count($locales); $i++) { 
-                $con->actualizarEstablecimeinto($_POST["id_local$i"], $_POST["metros$i"], $_POST["habitacion$i"], $_POST["lavavo$i"],$_POST["plantas$i"], $_POST["calle$i"], $_POST["numero$i"], $_POST["municipio$i"], $_POST["cod_postal$i"], $_POST["precio$i"], $_POST["venta_alquiler$i"]);
+            for ($i = 0; $i < count($locales); $i++) {
+                $con->actualizarEstablecimeinto($_POST["id_local$i"], $_POST["metros$i"], $_POST["habitacion$i"], $_POST["lavavo$i"], $_POST["plantas$i"], $_POST["calle$i"], $_POST["numero$i"], $_POST["municipio$i"], $_POST["cod_postal$i"], $_POST["precio$i"], $_POST["venta_alquiler$i"]);
             }
             header("Location: administrar_local.php");
         }
@@ -75,6 +75,7 @@
                                 <th style="background-color: #0d6efd; color: white;">Codigo Postal</th>
                                 <th style="background-color: #0d6efd; color: white;">Precio</th>
                                 <th style="background-color: #0d6efd; color: white;">Venta/Alquiler</th>
+                                <th style="background-color: #0d6efd; color: white;">imagen del establecimiento</th>
                             </tr>
                         </thead>
                         <tbody class="text-center">
@@ -91,12 +92,25 @@
                                 echo "<td>" . $locales[$i]['codigo_postal'] . "</td>";
                                 echo "<td>" . $locales[$i]['precio'] . "</td>";
                                 echo "<td>" . $locales[$i]['venta_alquiler'] . "</td>";
+                            ?>
+                                <td>
+                                    <?php $num_imagenes = $con->seleccionarimageneslocal($locales[$i]["id_local"]);
+
+                                    if ($num_imagenes != null) {
+                                        $max = $num_imagenes['COUNT(id_local)'];
+                                        $num = rand(1, $max);
+                                        $imagen = $con->seleccionarfoto_vivienda($num, $locales[$i]["id_local"]);
+                                    ?>
+
+                                        <img src="data:<?php echo $imagen[0]['tipo']; ?>;base64,<?php echo  base64_encode($imagen[0]["imagen"]); ?>" class="card-img-top" alt="...">
+                                    <?php } ?>
+                                </td>
+                            <?php
                                 echo "</tr>";
                             }
                             ?>
                         </tbody>
                     </table>
-
                 </div>
             </div>
         </div>
@@ -115,18 +129,18 @@
                                 <div class="col-lg-12">
                                     <div class="table-responsive">
                                         <table class="table" id="tablaPrincipal2" border="1">
-                                            <thead class="text-center">                      
+                                            <thead class="text-center">
                                                 <th style="background-color: #0d6efd; color: white;">ID Local</th>
-                                                    <th style="background-color: #0d6efd; color: white;">Metros</th>
-                                                    <th style="background-color: #0d6efd; color: white;">Habitaciones</th>
-                                                    <th style="background-color: #0d6efd; color: white;">lavavo</th>
-                                                    <th style="background-color: #0d6efd; color: white;">Plantas</th>
-                                                    <th style="background-color: #0d6efd; color: white;">Calle</th>
-                                                    <th style="background-color: #0d6efd; color: white;">Numero</th>
-                                                    <th style="background-color: #0d6efd; color: white;">Municipio</th>
-                                                    <th style="background-color: #0d6efd; color: white;">Codigo Postal</th>
-                                                    <th style="background-color: #0d6efd; color: white;">Precio</th>
-                                                    <th style="background-color: #0d6efd; color: white;">Venta/Alquiler</th>
+                                                <th style="background-color: #0d6efd; color: white;">Metros</th>
+                                                <th style="background-color: #0d6efd; color: white;">Habitaciones</th>
+                                                <th style="background-color: #0d6efd; color: white;">lavavo</th>
+                                                <th style="background-color: #0d6efd; color: white;">Plantas</th>
+                                                <th style="background-color: #0d6efd; color: white;">Calle</th>
+                                                <th style="background-color: #0d6efd; color: white;">Numero</th>
+                                                <th style="background-color: #0d6efd; color: white;">Municipio</th>
+                                                <th style="background-color: #0d6efd; color: white;">Codigo Postal</th>
+                                                <th style="background-color: #0d6efd; color: white;">Precio</th>
+                                                <th style="background-color: #0d6efd; color: white;">Venta/Alquiler</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="text-center">
@@ -145,10 +159,19 @@
                                                     echo "<td> <input type='number' name='precio$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $locales[$i]['precio'] . "'></td>";
                                                     echo "<td> 
                                                             <select name='venta_alquiler$i'>
-                                                                <option value='venta'"; if($locales[$i]['venta_alquiler']== "venta"){echo "selected"; }echo ">Venta</option>
-                                                                <option value='alquiler'"; if($locales[$i]['venta_alquiler']== "alquiler"){echo "selected"; }echo ">Alquilar</option>
+                                                                <option value='venta'";
+                                                    if ($locales[$i]['venta_alquiler'] == "venta") {
+                                                        echo "selected";
+                                                    }
+                                                    echo ">Venta</option>
+                                                                <option value='alquiler'";
+                                                    if ($locales[$i]['venta_alquiler'] == "alquiler") {
+                                                        echo "selected";
+                                                    }
+                                                    echo ">Alquilar</option>
                                                             </select>
                                                         </td>";
+
                                                     echo "</tr>";
                                                 }
                                                 ?>

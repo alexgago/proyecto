@@ -35,7 +35,13 @@
         header("Location:Inicio.php");
     }
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        
+        if (isset($_POST['guardar'])) {
+            for ($i=0; $i < count($usuarios); $i++) { 
+                $con->actualizarUsuario($_POST["DNI$i"], $_POST["nombre$i"], $_POST["pri_apellido$i"], $_POST["seg_apellido$i"], $_POST["correo$i"],
+                $_POST["direccion$i"], $_POST["telefono$i"], $_POST["cod_postal$i"], $_POST["rol$i"]);
+            }
+            header("Location:administrar_usuarios.php");
+        }
     }
 
 
@@ -80,7 +86,17 @@
                                 echo "<td>" . $usuarios[$i]['telefono'] . "</td>";
                                 echo "<td>" . $usuarios[$i]['codigo_postal'] . "</td>";
                                 echo "<td>" . $usuarios[$i]['rol'] . "</td>";
-                                echo "<td>" . $usuarios[$i]['imagen_usu'] . "</td>";
+                                ?>
+                                <td>
+                                <?php $imagen = $con->seleccionarfoto($usuarios[$i]["DNI"]);
+                       if($imagen == null){ ?>
+                        <img src="img/admi_vivienda.jpg" class="card-img-top" alt="...">
+                       <?php }else{
+                       ?>
+                       <img src="data:<?php echo $imagen[0]['tipo']; ?>;base64,<?php echo  base64_encode($imagen[0]["imagen"]); ?>" class="card-img-top" alt="...">
+                        <?php } ?>
+                                </td>
+                                <?php
                                 echo "</tr>";
                             }
                             ?>
@@ -130,18 +146,18 @@
                                                     echo "<td> <input type='text' name='direccion$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $usuarios[$i]['direccion'] . "'></td>";
                                                     echo "<td> <input type='text' name='telefono$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $usuarios[$i]['telefono'] . "'></td>";
                                                     echo "<td> <input type='text' name='cod_postal$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $usuarios[$i]['codigo_postal'] . "'></td>";
-                                                   echo "<td> 
-                                                            <select name='rol'>
+                                                    echo "<td> 
+                                                            <select name='rol$i'>
                                                                 <option value='Trabajador'";
-                                                    if ($usuarios[$i]['rol'] == "Trabajador") {
-                                                        echo "selected";
-                                                    }
-                                                    echo ">Trabajador</option>
-                                                                <option value='cliente'";
-                                                    if ($usuarios[$i]['rol'] == "cliente") {
-                                                        echo "selected";
-                                                    }
-                                                    echo ">Cliente</option>
+                                                                if ($usuarios[$i]['rol'] == "Trabajador") {
+                                                                    echo "selected";
+                                                                }
+                                                                echo ">Trabajador</option>
+                                                                <option value='Usuario'";
+                                                                if ($usuarios[$i]['rol'] == "Usuario") {
+                                                                echo "selected";
+                                                                }
+                                                                echo ">Usuario</option>
                                                             </select>
                                                         </td>";
                                                     echo "</tr>";
