@@ -35,7 +35,9 @@
         header("Location:Inicio.php");
     }
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        
     }
+
 
     ?>
     <h1 class="text-center">Administrar Usuarios</h1>
@@ -155,6 +157,7 @@
                     </div>
                     <!-- Modal footer -->
                     <div class="modal-footer">
+                        <input type="submit" name="guardar" id="guardar" value="guardar">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
                     </div>
                 </form>

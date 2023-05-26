@@ -42,7 +42,7 @@
         }
         if (isset($_POST['guardar'])) {
             for ($i=0; $i < count($vivienda); $i++) { 
-                $con->actualizarVivienda($_POST["id_vivienda$i"], $_POST["metros$i"], $_POST["habitacion$i"], $_POST["lavavo$i"],$_POST["plantas$i"], $_POST["calle$i"], $_POST["numero$i"], $_POST["portal$i"], $_POST["puerta$i"], $_POST["escalera$i"], $_POST["municipio$i"], $_POST["cod_postal$i"], $_POST["precio$i"], $_POST["venta_alquiler$i"]);
+                //$con->actualizarVivienda($_POST["id_vivienda$i"], $_POST["metros$i"], $_POST["habitacion$i"], $_POST["lavavo$i"],$_POST["plantas$i"], $_POST["calle$i"], $_POST["numero$i"], $_POST["portal$i"], $_POST["puerta$i"], $_POST["escalera$i"], $_POST["municipio$i"], $_POST["cod_postal$i"], $_POST["precio$i"], $_POST["venta_alquiler$i"]);
             }
             header("Location: administrar_vivienda.php");
         }
@@ -158,7 +158,7 @@
                                                     echo "<td> <input type='number' name='cod_postal$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['codigo_postal'] . "'></td>";
                                                     echo "<td> <input type='number' name='precio$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['precio'] . "'></td>";
                                                     echo "<td> 
-                                                            <select name='venta_alquiler'>
+                                                            <select name='venta_alquiler$i'>
                                                                 <option value='venta'";
                                                     if ($vivienda[$i]['venta_alquiler'] == "venta") {
                                                         echo "selected";
@@ -184,6 +184,7 @@
                     </div>
                     <!-- Modal footer -->
                     <div class="modal-footer">
+                    <input type="submit" name="guardar" id="guardar" value="guardar">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
                     </div>
                 </form>
