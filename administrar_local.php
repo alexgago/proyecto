@@ -16,6 +16,9 @@
         .sin_permisos {
             display: none;
         }
+        input{
+            width: 50px;
+        }
     </style>
 </head>
 
@@ -114,7 +117,7 @@
                 </div>
             </div>
         </div>
-        <input type="submit" name="nuevo_local" id="nuevo_local" value="Nuevo Local">
+        <input type="submit" name="nuevo_local" id="nuevo_local" value="Nuevo Local" style="width: 300px;">
 
     </form>
     <div class="modal" id="myModal3">
@@ -147,24 +150,24 @@
                                                 <?php
                                                 for ($i = 0; $i < count($locales); $i++) {
                                                     echo "<tr>";
-                                                    echo "<td> <input type='text' name='id_local$i' style = 'text-align: center;border: 0;width: 50px; background-color: white;' value='" . $locales[$i]['id_local'] . "'></td>";
-                                                    echo "<td> <input type='number' name='metros$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $locales[$i]['metros'] . "'></td>";
-                                                    echo "<td> <input type='number' name='habitacion$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $locales[$i]['habitacion'] . "'></td>";
-                                                    echo "<td> <input type='number' name='lavavo$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $locales[$i]['lavavo'] . "'></td>";
-                                                    echo "<td> <input type='number' name='plantas$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $locales[$i]['plantas'] . "'></td>";
-                                                    echo "<td> <input type='text' name='calle$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $locales[$i]['calle'] . "'></td>";
-                                                    echo "<td> <input type='number' name='numero$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $locales[$i]['numero'] . "'></td>";
-                                                    echo "<td> <input type='number' name='municipio$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $locales[$i]['municipio'] . "'></td>";
-                                                    echo "<td> <input type='number' name='cod_postal$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $locales[$i]['codigo_postal'] . "'></td>";
-                                                    echo "<td> <input type='number' name='precio$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $locales[$i]['precio'] . "'></td>";
+                                                    echo "<td> <input type='number' name='id_local$i' style = 'text-align: center;border: 1;width: 50px; background-color: white;' value='" . $locales[$i]['id_local'] . "' readonly></td>";
+                                                    echo "<td> <input type='number' name='metros$i' style = 'text-align: center;border: 1;background-color: white;' value='" . $locales[$i]['metros'] . "'></td>";
+                                                    echo "<td> <input type='number' name='habitacion$i' style = 'text-align: center;border: 1;background-color: white;' value='" . $locales[$i]['habitacion'] . "'></td>";
+                                                    echo "<td> <input type='number' name='lavavo$i' style = 'text-align: center;border: 1;background-color: white;' value='" . $locales[$i]['lavavo'] . "'></td>";
+                                                    echo "<td> <input type='number' name='plantas$i' style = 'text-align: center;border: 1;background-color: white;' value='" . $locales[$i]['plantas'] . "'></td>";
+                                                    echo "<td> <input type='text' name='calle$i' style = 'text-align: center;border: 1;background-color: white;' value='" . $locales[$i]['calle'] . "'></td>";
+                                                    echo "<td> <input type='number' name='numero$i' style = 'text-align: center;border: 1;background-color: white;' value='" . $locales[$i]['numero'] . "'></td>";
+                                                    echo "<td> <input type='text' name='municipio$i' style = 'text-align: center;border: 1;background-color: white;' value='" . $locales[$i]['municipio'] . "'></td>";
+                                                    echo "<td> <input type='number' name='cod_postal$i' style = 'text-align: center;border: 1;background-color: white; width:70px;' value='" . $locales[$i]['codigo_postal'] . "'></td>";
+                                                    echo "<td> <input type='number' name='precio$i' style = 'text-align: center;border: 1;background-color: white;  width: 120px ;' value='" . $locales[$i]['precio'] . "'></td>";
                                                     echo "<td> 
                                                             <select name='venta_alquiler$i'>
-                                                                <option value='venta'";
+                                                                <option value='venta' ";
                                                     if ($locales[$i]['venta_alquiler'] == "venta") {
                                                         echo "selected";
                                                     }
                                                     echo ">Venta</option>
-                                                                <option value='alquiler'";
+                                                                <option value='alquiler' ";
                                                     if ($locales[$i]['venta_alquiler'] == "alquiler") {
                                                         echo "selected";
                                                     }

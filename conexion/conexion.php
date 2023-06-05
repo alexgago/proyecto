@@ -25,8 +25,6 @@ class ConectaDB
         $this->conex = null;
     }
 
-
-
     public function eliminar_acentos($cadena)
     {
 
@@ -74,11 +72,21 @@ class ConectaDB
 
         return $cadena;
     }
-    public function seleccionarUsuario($correo)
+    public function seleccionarUsuarios()
     {
-        $consulta = $this->conex->prepare("select * from usuario where correo=?");
+        $consulta = $this->conex->prepare("select DNI, nombre, pri_apellido, seg_apellido, correo, direccion, telefono, codigo_postal, rol from usuario");
+        if ($consulta->execute()) {
+            $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            return $datos;
+        } else {
+            return false;
+        }
+    }
+    public function seleccionarUsuario($correo, $dni)
+    {
+        $consulta = $this->conex->prepare("select * from usuario where correo=? and DNI=?");
         $consulta->bindParam(1, $correo);
-        //$consulta->bindParam(2, $dni);
+        $consulta->bindParam(2, $dni);
         if ($consulta->execute()) {
             $datos = $consulta->fetch(PDO::FETCH_ASSOC);
             return $datos;
@@ -348,7 +356,7 @@ class ConectaDB
 
     public function actualizarVivienda($id_vivienda, $metros,  $habitacion, $lavavo, $plantas,  $calle, $numero, $portal, $puerta, $escalera, $municipio, $cod_postal, $precio, $venta_alquiler)
     {
-        $consulta = $this->conex->prepare("UPDATE vivienda set venta_alquiler=?, metros = ?, lavavo= ?, habitacion =?, plantas =?, portal=?, puerta=? numero=?, calle=?, municipio =?, codigo_postal=?, precio =? where id_local=?");
+        $consulta = $this->conex->prepare("UPDATE vivienda set venta_alquiler=?, metros = ?, lavavo= ?, habitacion =?, plantas =?, portal=?, puerta=?, escalera=?, numero=?, calle=?, municipio =?, codigo_postal=?, precio =? where id_vivienda=?");
         $consulta->bindParam(1, $venta_alquiler);
         $consulta->bindParam(2, $metros);
         $consulta->bindParam(3, $lavavo);

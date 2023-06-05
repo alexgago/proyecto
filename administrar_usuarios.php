@@ -138,7 +138,7 @@
                                                 <?php
                                                 for ($i = 0; $i < count($usuarios); $i++) {
                                                     echo "<tr>";
-                                                    echo "<td> <input type='text'name='DNI$i' style = 'text-align: center;border: 0;width: 50px; background-color: white;' value='" . $usuarios[$i]['DNI'] . "'></td>";
+                                                    echo "<td> <input type='text' name='DNI$i' style = 'text-align: center;border: 0;width: 50px; background-color: white;' value='" . $usuarios[$i]['DNI'] . "'></td>";
                                                     echo "<td> <input type='text' name='nombre$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $usuarios[$i]['nombre'] . "'></td>";
                                                     echo "<td> <input type='text' name='pri_apellido$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $usuarios[$i]['pri_apellido'] . "'></td>";
                                                     echo "<td> <input type='text' name='seg_apellido$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $usuarios[$i]['seg_apellido'] . "'></td>";

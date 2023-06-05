@@ -16,6 +16,9 @@
         .sin_permisos {
            display: none;
         }
+        input{
+            width: 50px;
+        }
     </style>
 </head>
 
@@ -63,7 +66,7 @@
     <form method="post" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
 
 
-        <div class="container caja" style="margin-top: 20px;">
+        <div class="container caja" style="margin-top: 20px; width: 110%;" >
             <div class="col-lg-12">
                 <div class="table-responsive">
                     <table class="table" id="tablaPrincipal" border="1">
@@ -125,20 +128,20 @@
                 </div>
             </div>
         </div>
-        <input type="submit" name="nuevo_vivienda" id="nuevo_vivienda" value="Nueva Vivienda">
+        <input type="submit" name="nuevo_vivienda" id="nuevo_vivienda" value="Nueva Vivienda" style="width: 300px;">
     </form>
     <div class="modal" id="myModal3">
         <div class="modal-dialog">
-            <div class="modal-content" style="width: 300% ; margin-left: -500px;">
+            <div class="modal-content" style="width: 380% ; margin-left: -680px;">
                 <form method="post" autocomplete="off">
                     <!-- Modal body -->
-                    <div class="modal-body" style="font-size: 15px;">
+                    <div class="modal-body" style="font-size: 15px; width: 120%">
                         <h1 class="text-center" style="font-size: 18px;">MODIFICAR ESTABLECIMIENTOS</h1>
-                        <div class="container caja">
-                            <div class="container caja">
-                                <div class="col-lg-12">
-                                    <div class="table-responsive">
-                                        <table class="table" id="tablaPrincipal2" border="1">
+                        <div class="container caja" style="width: 150%;">
+                            <div class="container caja" style="width: 150% ;">
+                                <div class="col-lg-12" style="width: 140% ;">
+                                    <div class="table-responsive" style="width: 100% ; margin-left: -450px;">
+                                        <table class="table" id="tablaPrincipal2" border="1" style="width: 100% ;">
                                             <thead class="text-center">
                                                 <tr>
                                                     <th style="background-color: #0d6efd; color: white;">ID VIvienda</th>
@@ -160,33 +163,29 @@
                                             </thead>
                                             <tbody class="text-center">
                                                 <?php
-                                                echo "<pre>";
-                                                print_r($vivienda);
-                                                echo "</pre>";
-
                                                 for ($i = 0; $i < count($vivienda); $i++) {
                                                     echo "<tr>";
-                                                    echo "<td> " . $vivienda[$i]['id_vivienda'] ."</td>";
-                                                    echo "<td> <input type='number' name='metros$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['metros'] . "'></td>";
-                                                    echo "<td> <input type='number' name='habitacion$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['habitacion'] . "'></td>";
-                                                    echo "<td> <input type='number' name='lavavo$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['lavavo'] . "'></td>";
-                                                    echo "<td> <input type='number' name='plantas$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['plantas'] . "'></td>";
-                                                    echo "<td> <input type='text' name='portal$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['portal'] . "'></td>";
-                                                    echo "<td> <input type='text' name='escalera$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['escalera'] . "'></td>";
-                                                    echo "<td> <input type='text' name='puerta$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['puerta'] . "'></td>";
-                                                    echo "<td> <input type='text' name='calle$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['calle'] . "'></td>";
-                                                    echo "<td> <input type='number' name='numero$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['numero'] . "'></td>";
-                                                    echo "<td> <input type='number' name='municipio$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['municipio'] . "'></td>";
-                                                    echo "<td> <input type='number' name='cod_postal$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['codigo_postal'] . "'></td>";
-                                                    echo "<td> <input type='number' name='precio$i' style = 'text-align: center;border: 0;background-color: white;' value='" . $vivienda[$i]['precio'] . "'></td>";
+                                                    echo "<td> <input type='number' name ='id_vivienda$i' value= '". $vivienda[$i]['id_vivienda'] . "' readonly></td>";
+                                                    echo "<td> <input type='number' name='metros$i' style = 'text-align: center;border: 1;background-color: white;' value='" . $vivienda[$i]['metros'] . "'></td>";
+                                                    echo "<td> <input type='number' name='habitacion$i' style = 'text-align: center;border: 1;background-color: white;' value='" . $vivienda[$i]['habitacion'] . "'></td>";
+                                                    echo "<td> <input type='number' name='lavavo$i' style = 'text-align: center;border: 1;background-color: white;' value='" . $vivienda[$i]['lavavo'] . "'></td>";
+                                                    echo "<td> <input type='number' name='plantas$i' style = 'text-align: center;border: 1;background-color: white;' value='" . $vivienda[$i]['plantas'] . "'></td>";
+                                                    echo "<td> <input type='number' name='portal$i' style = 'text-align: center;border: 1;background-color: white;' value='" . $vivienda[$i]['portal'] . "'></td>";
+                                                    echo "<td> <input type='text' name='escalera$i' style = 'text-align: center;border: 1;background-color: white; width: 150px ;' value='" . $vivienda[$i]['escalera'] . "'></td>";
+                                                    echo "<td> <input type='number' name='puerta$i' style = 'text-align: center;border: 1;background-color: white;' value='" . $vivienda[$i]['puerta'] . "'></td>";
+                                                    echo "<td> <input type='text' name='calle$i' style = 'text-align: center;border: 1;background-color: white;' value='" . $vivienda[$i]['calle'] . "'></td>";
+                                                    echo "<td> <input type='number' name='numero$i' style = 'text-align: center;border: 1;background-color: white;' value='" . $vivienda[$i]['numero'] . "'></td>";
+                                                    echo "<td> <input type='text' name='municipio$i' style = 'text-align: center;border: 1;background-color: white; width: 160px ;' value='" . $vivienda[$i]['municipio'] . "'></td>";
+                                                    echo "<td> <input type='number' name='cod_postal$i' style = 'text-align: center;border: 1;background-color: white; width: 70px ;' value='" . $vivienda[$i]['codigo_postal'] . "'></td>";
+                                                    echo "<td> <input type='number' name='precio$i' style = 'text-align: center;border: 1;background-color: white; width: 120px ;' value='" . $vivienda[$i]['precio'] . "'></td>";
                                                     echo "<td> 
                                                             <select name='venta_alquiler$i'>
-                                                                <option value='venta'";
+                                                                <option value='venta' ";
                                                     if ($vivienda[$i]['venta_alquiler'] == "venta") {
                                                         echo "selected";
                                                     }
                                                     echo ">Venta</option>
-                                                                <option value='alquiler'";
+                                                                <option value='alquiler' ";
                                                     if ($vivienda[$i]['venta_alquiler'] == "alquiler") {
                                                         echo "selected";
                                                     }
