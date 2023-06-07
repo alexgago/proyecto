@@ -84,18 +84,6 @@
                                             $num = rand(1, $max);
                                             $imagen = $conexion->seleccionarfoto_local($num, $locales[$i]["id_local"]);
                                         ?>
-
-                                            <img src="data:<?php echo $imagen[0]['tipo']; ?>;base64,<?php echo  base64_encode($imagen[0]["imagen"]); ?>" class="card-img-top" alt="...">
-                                        <?php } ?>
-                                    </td>
-                                    <td>
-                                        <?php $num_imagenes = $conexion->seleccionarimageneslocal($locales[$i]["id_local"]);
-
-                                        if ($num_imagenes != null) {
-                                            $max = $num_imagenes['COUNT(id_local)'];
-                                            $num = rand(1, $max);
-                                            $imagen = $conexion->seleccionarfoto_local($num, $locales[$i]["id_local"]);
-                                        ?>
                                             <div class="container">
                                                 <div class="row">
                                                     <div class="col-lg-12">
