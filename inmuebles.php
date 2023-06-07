@@ -86,7 +86,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <div class="container" style="text-align: center; justify-content: center;">
@@ -100,7 +99,7 @@
                         </div>
                     </div>
                     <div class="col" style="text-align: center; justify-content: center;">
-                        <div class="card text-center" style="width: 17rem;">
+                        <div class="card text-center" style="width: 18rem;">
                             <a href="compra_vivienda.php"><img src="img/compra_vienda.jpg" class="card-img-top" alt="..."></a>
                             <div class="card-body">
                                 <button name="compra_vivienda" value="" class="btn btn-primary">Compra Vivienda</button>

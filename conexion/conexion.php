@@ -218,11 +218,45 @@ class ConectaDB
             return false;
         }
     }
+    public function seleccionarfotos_vivienda($id_vivienda)
+    {
+        $consulta = $this->conex->prepare("select * from imagenes_vivienda where id_vivienda = ?");
+        $consulta->bindParam(1, $id_vivienda);
+        if ($consulta->execute()) {
+            $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            return $datos;
+        } else {
+            return false;
+        }
+    }
+    public function seleccionarfotos_locales($id_local)
+    {
+        $consulta = $this->conex->prepare("select * from imagenes_establecimientos where id_local = ?");
+        $consulta->bindParam(1, $id_local);
+        if ($consulta->execute()) {
+            $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            return $datos;
+        } else {
+            return false;
+        }
+    }
     public function seleccionarfoto_vivienda($id_foto, $id_vivienda)
     {
         $consulta = $this->conex->prepare("select * from imagenes_vivienda where id_foto = ? and id_vivienda = ?");
         $consulta->bindParam(1, $id_foto);
         $consulta->bindParam(2, $id_vivienda);
+        if ($consulta->execute()) {
+            $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            return $datos;
+        } else {
+            return false;
+        }
+    }
+    public function seleccionarfoto_local($id_foto, $id_local)
+    {
+        $consulta = $this->conex->prepare("select * from imagenes_establecimientos where id_foto = ? and id_local = ?");
+        $consulta->bindParam(1, $id_foto);
+        $consulta->bindParam(2, $id_local);
         if ($consulta->execute()) {
             $datos = $consulta->fetchAll(PDO::FETCH_ASSOC);
             return $datos;

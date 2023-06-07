@@ -82,10 +82,41 @@
                                         if ($num_imagenes != null) {
                                             $max = $num_imagenes['COUNT(id_local)'];
                                             $num = rand(1, $max);
-                                            $imagen = $conexion->seleccionarfoto_vivienda($num, $locales[$i]["id_local"]);
+                                            $imagen = $conexion->seleccionarfoto_local($num, $locales[$i]["id_local"]);
                                         ?>
 
                                             <img src="data:<?php echo $imagen[0]['tipo']; ?>;base64,<?php echo  base64_encode($imagen[0]["imagen"]); ?>" class="card-img-top" alt="...">
+                                        <?php } ?>
+                                    </td>
+                                    <td>
+                                        <?php $num_imagenes = $conexion->seleccionarimageneslocal($locales[$i]["id_local"]);
+
+                                        if ($num_imagenes != null) {
+                                            $max = $num_imagenes['COUNT(id_local)'];
+                                            $num = rand(1, $max);
+                                            $imagen = $conexion->seleccionarfoto_local($num, $locales[$i]["id_local"]);
+                                        ?>
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#myModal<?php echo $i; ?>" style="float: right; margin-right: 20px; color: white; margin-top: 20px;"><img src="data:<?php echo $imagen[0]['tipo']; ?>;base64,<?php echo  base64_encode($imagen[0]["imagen"]); ?>" class="card-img-top" alt="..."></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal" id="myModal<?php echo $i; ?>" style="margin: 0 auto;">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content" style="width: 250%; margin-left: -500px;">
+                                                        <?php
+                                                        for ($j = 0; $j < $max; $j++) {
+                                                            $imagenes = $conexion->seleccionarfotos_local($locales[$i]["id_local"]);
+                                                        ?>
+                                                            <img src="data:<?php echo $imagenes[$j]['tipo']; ?>;base64,<?php echo  base64_encode($imagenes[$j]["imagen"]); ?>" class="card-img-top" alt="...">
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         <?php } ?>
                                     </td>
                                 <?php

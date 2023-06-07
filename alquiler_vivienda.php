@@ -84,17 +84,36 @@
                                 echo "<td>" . $vivienda[$i]['precio'] . "</td>";
                             ?>
                                 <td>
-                                    <?php $num_imagenes = $conexion->seleccionarimagenesvivienda($vivienda[$i]["id_vivienda"]);
-                                    
-                                    if ($num_imagenes != null) {
-                                        $max = $num_imagenes['COUNT(id_vivienda)']; 
-                                        $num = rand(1, $max);
-                                            $imagen= $conexion->seleccionarfoto_vivienda($num, $vivienda[$i]["id_vivienda"]);
-                                            ?>
-                                    
-                                        <img src="data:<?php echo $imagen[0]['tipo']; ?>;base64,<?php echo  base64_encode($imagen[0]["imagen"]); ?>" class="card-img-top" alt="...">
-                                    <?php } ?>
-                                </td>
+                                        <?php $num_imagenes = $conexion->seleccionarimagenesvivienda($vivienda[$i]["id_vivienda"]);
+
+                                        if ($num_imagenes != null) {
+                                            $max = $num_imagenes['COUNT(id_vivienda)'];
+                                            $num = rand(1, $max);
+                                            $imagen = $conexion->seleccionarfoto_vivienda($num, $vivienda[$i]["id_vivienda"]);
+                                        ?>
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#myModal<?php echo $i; ?>" style="float: right; margin-right: 20px; color: white; margin-top: 20px;"><img src="data:<?php echo $imagen[0]['tipo']; ?>;base64,<?php echo  base64_encode($imagen[0]["imagen"]); ?>" class="card-img-top" alt="..."></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal" id="myModal<?php echo $i; ?>" style="margin: 0 auto;">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content" style="width: 250%; margin-left: -500px;">
+                                                        <?php
+                                                        for ($j = 0; $j < $max; $j++) {
+                                                            $imagenes = $conexion->seleccionarfotos_vivienda($vivienda[$i]["id_vivienda"]);
+                                                        ?>
+                                                            <img src="data:<?php echo $imagenes[$j]['tipo']; ?>;base64,<?php echo  base64_encode($imagenes[$j]["imagen"]); ?>" class="card-img-top" alt="...">
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php } ?>
+                                    </td>
                             <?php
                                 echo "</tr>";
                             

@@ -81,14 +81,10 @@
 				}
 			}
 			$_SESSION['error'] = "Los datos introducidos son incorrectos";
-
 		}
 	} else {
 
 	?>
-
-
-
 		<br>
 		<br>
 		<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">

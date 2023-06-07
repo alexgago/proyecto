@@ -50,71 +50,90 @@
             <div class="container caja" style="margin-top: 20px;">
                 <div class="col-lg-12">
                     <div class="table-responsive">
-                    <table class="table" id="tablaPrincipal" border="1">
-                        <thead class="text-center">
-                            <tr>
-                                <th style="background-color: #0d6efd; color: white;">Metros</th>
-                                <th style="background-color: #0d6efd; color: white;">Habitaciones</th>
-                                <th style="background-color: #0d6efd; color: white;">lavavo</th>
-                                <th style="background-color: #0d6efd; color: white;">Plantas</th>
-                                <th style="background-color: #0d6efd; color: white;">Portal</th>
-                                <th style="background-color: #0d6efd; color: white;">Escalera</th>
-                                <th style="background-color: #0d6efd; color: white;">Puerta</th>
-                                <th style="background-color: #0d6efd; color: white;">Calle</th>
-                                <th style="background-color: #0d6efd; color: white;">Numero</th>
-                                <th style="background-color: #0d6efd; color: white;">Municipio</th>
-                                <th style="background-color: #0d6efd; color: white;">Codigo Postal</th>
-                                <th style="background-color: #0d6efd; color: white;">Precio</th>
-                                <th style="background-color: #0d6efd; color: white;">Imagen de la vivienda</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-center">
-                            <?php
-                            for ($i = 0; $i < count($vivienda); $i++) {
-                                echo "<tr>";
-                                echo "<td>" . $vivienda[$i]['metros'] . "</td>";
-                                echo "<td>" . $vivienda[$i]['habitacion'] . "</td>";
-                                echo "<td>" . $vivienda[$i]['lavavo'] . "</td>";
-                                echo "<td>" . $vivienda[$i]['plantas'] . "</td>";
-                                echo "<td>" . $vivienda[$i]['portal'] . "</td>";
-                                echo "<td>" . $vivienda[$i]['escalera'] . "</td>";
-                                echo "<td>" . $vivienda[$i]['puerta'] . "</td>";
-                                echo "<td>" . $vivienda[$i]['calle'] . "</td>";
-                                echo "<td>" . $vivienda[$i]['numero'] . "</td>";
-                                echo "<td>" . $vivienda[$i]['municipio'] . "</td>";
-                                echo "<td>" . $vivienda[$i]['codigo_postal'] . "</td>";
-                                echo "<td>" . $vivienda[$i]['precio'] . "</td>";
-                            ?>
-                                <td>
-                                    <?php $num_imagenes = $conexion->seleccionarimagenesvivienda($vivienda[$i]["id_vivienda"]);
-                                    
-                                    if ($num_imagenes != null) {
-                                        $max = $num_imagenes['COUNT(id_vivienda)']; 
-                                        $num = rand(1, $max);
-                                            $imagen= $conexion->seleccionarfoto_vivienda($num, $vivienda[$i]["id_vivienda"]);
-                                            ?>
-                                    
-                                        <img src="data:<?php echo $imagen[0]['tipo']; ?>;base64,<?php echo  base64_encode($imagen[0]["imagen"]); ?>" class="card-img-top" alt="...">
-                                    <?php } ?>
-                                </td>
-                            <?php
-                                echo "</tr>";
-                            
-                            }
-                            ?>
-                        </tbody>
-                    </table>
+                        <table class="table" id="tablaPrincipal" border="1">
+                            <thead class="text-center">
+                                <tr>
+                                    <th style="background-color: #0d6efd; color: white;">Metros</th>
+                                    <th style="background-color: #0d6efd; color: white;">Habitaciones</th>
+                                    <th style="background-color: #0d6efd; color: white;">lavavo</th>
+                                    <th style="background-color: #0d6efd; color: white;">Plantas</th>
+                                    <th style="background-color: #0d6efd; color: white;">Portal</th>
+                                    <th style="background-color: #0d6efd; color: white;">Escalera</th>
+                                    <th style="background-color: #0d6efd; color: white;">Puerta</th>
+                                    <th style="background-color: #0d6efd; color: white;">Calle</th>
+                                    <th style="background-color: #0d6efd; color: white;">Numero</th>
+                                    <th style="background-color: #0d6efd; color: white;">Municipio</th>
+                                    <th style="background-color: #0d6efd; color: white;">Codigo Postal</th>
+                                    <th style="background-color: #0d6efd; color: white;">Precio</th>
+                                    <th style="background-color: #0d6efd; color: white;">Imagen de la vivienda</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center">
+                                <?php
+                                for ($i = 0; $i < count($vivienda); $i++) {
+                                    echo "<tr>";
+                                    echo "<td>" . $vivienda[$i]['metros'] . "</td>";
+                                    echo "<td>" . $vivienda[$i]['habitacion'] . "</td>";
+                                    echo "<td>" . $vivienda[$i]['lavavo'] . "</td>";
+                                    echo "<td>" . $vivienda[$i]['plantas'] . "</td>";
+                                    echo "<td>" . $vivienda[$i]['portal'] . "</td>";
+                                    echo "<td>" . $vivienda[$i]['escalera'] . "</td>";
+                                    echo "<td>" . $vivienda[$i]['puerta'] . "</td>";
+                                    echo "<td>" . $vivienda[$i]['calle'] . "</td>";
+                                    echo "<td>" . $vivienda[$i]['numero'] . "</td>";
+                                    echo "<td>" . $vivienda[$i]['municipio'] . "</td>";
+                                    echo "<td>" . $vivienda[$i]['codigo_postal'] . "</td>";
+                                    echo "<td>" . $vivienda[$i]['precio'] . "</td>";
+                                ?>
+                                    <td>
+                                        <?php $num_imagenes = $conexion->seleccionarimagenesvivienda($vivienda[$i]["id_vivienda"]);
 
+                                        if ($num_imagenes != null) {
+                                            $max = $num_imagenes['COUNT(id_vivienda)'];
+                                            $num = rand(1, $max);
+                                            $imagen = $conexion->seleccionarfoto_vivienda($num, $vivienda[$i]["id_vivienda"]);
+                                        ?>
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#myModal<?php echo $i; ?>" style="float: right; margin-right: 20px; color: white; margin-top: 20px;"><img src="data:<?php echo $imagen[0]['tipo']; ?>;base64,<?php echo  base64_encode($imagen[0]["imagen"]); ?>" class="card-img-top" alt="..."></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal" id="myModal<?php echo $i; ?>" style="margin: 0 auto;">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content" style="width: 250%; margin-left: -500px;">
+                                                        <?php
+                                                        for ($j = 0; $j < $max; $j++) {
+                                                            $imagenes = $conexion->seleccionarfotos_vivienda($vivienda[$i]["id_vivienda"]);
+                                                        ?>
+                                                            <img src="data:<?php echo $imagenes[$j]['tipo']; ?>;base64,<?php echo  base64_encode($imagenes[$j]["imagen"]); ?>" class="card-img-top" alt="...">
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php } ?>
+                                    </td>
+                                <?php
+                                    echo "</tr>";
+                                }
+                                ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </form>
+
         <script src="jquery/jquery-3.3.1.min.js"></script>
         <script type="text/javascript" src="datatables/datatables.min.js"></script>
         <script src="bootstrap/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="jquery/jqueryGP.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
         </script>
+
 </body>
 
 </html>
