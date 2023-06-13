@@ -30,8 +30,9 @@
             background: rgb(191, 208, 240);
             text-align: center;
             padding-bottom: 10px;
-            
+
         }
+
         p {
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
         }
@@ -54,13 +55,32 @@
         $datos = $con->seleccionarUsuario($_SESSION['email']);
     } else {
         include_once("otros/cabeceraprincipal.php");
+    } 
+    if ($_SERVER['REQUEST_METHOD'] != 'GET') {
+        //procesa.
+        $con = ConectaDB::singleton();
+        if (isset($_POST['contacta'])) {
+            $nombre = filtrado ($_POST['nombre']);
+            $pri_apellido = filtrado($_POST['primer_ape']);
+            $seg_apellido = filtrado($_POST['segundo_ape']);
+            $telefono = filtrado ($_POST['telefono']);
+            $correo = filtrado($_POST['email']);
+            $mensaje = filtrado($_POST['duda']);
+
+            $apellidos = $pri_apellido . " " . $seg_apellido;
+            $asunto = "Consulta del cliente: " . $nombre . " " . $apellidos;
+            $consulta = $correo."\n".$asunto."\n".$telefono."\n".$mensaje;
+            
+            $header = "From: inmobiliaria@consulta.com\r\n";
+            $header .= "Reaply-To: inmobiliaria@consulta.com\r\n";
+            $header .= "X-Mailer: PHP/" . phpversion();
+            $mail = @mail("gagoplay99@gmail.com", $asunto, $consulta, $header);
+            $_SESSION ['error'] = var_dump(mail("gagoplay99@gmail.com", $asunto, $consulta, $header));
+            echo $_SESSION['error'];
+            header("location: contacta.php");
+        }
     }
-
-
-
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    }
+    
     ?>
     <br>
     <form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>" style="width : 150%;">
@@ -69,36 +89,36 @@
             <div class="mb-3">
                 <label for="nombre" class="form-label" style="width: 200px;">Nombre:</label>
                 <input type="text" style="width: 400px;" id="nombre" class="form-control" name="nombre" value="<?php if (isset($datos['nombre'])) {
-                                                                                                echo $datos['nombre'];
-                                                                                            } ?>">
+                                                                                                                    echo $datos['nombre'];
+                                                                                                                } ?>">
             </div>
             <div class="mb-3">
                 <label for="primer_ape" style="width: 200px;" class="form-label">Primer Apellido:</label>
                 <input type="text" id="primer_ape" style="width: 400px;" class="form-control" name="primer_ape" value="<?php if (isset($datos['pri_apellido'])) {
-                                                                                                        echo $datos['pri_apellido'];
-                                                                                                    } ?>">
+                                                                                                                            echo $datos['pri_apellido'];
+                                                                                                                        } ?>">
             </div>
             <div class="mb-3">
                 <label for="segundo_ape" style="width: 200px;" class="form-label">Segundo Apellido:</label>
                 <input type="text" id="segundo_ape" style="width: 400px;" class="form-control" name="segundo_ape" value="<?php if (isset($datos['seg_apellido'])) {
-                                                                                                        echo $datos['seg_apellido'];
-                                                                                                    } ?>">
+                                                                                                                                echo $datos['seg_apellido'];
+                                                                                                                            } ?>">
             </div>
             <div class="mb-3">
                 <label for="telefono" style="width: 200px;" class="form-label">Telefono:</label>
                 <input type="text" id="telefono" style="width: 400px;" minlength="9" maxlength="9" pattern="[6-9][0-9]{8}" class="form-control" name="telefono" title="El telefono debe empezar por 6, 7, 8 o 9" value="<?php if (isset($datos['telefono'])) {
-                                                                                                                                                                                                        echo $datos['telefono'];
-                                                                                                                                                                                                    } ?>">
+                                                                                                                                                                                                                            echo $datos['telefono'];
+                                                                                                                                                                                                                        } ?>">
             </div>
             <div class="mb-3">
                 <label for="email" style="width: 200px;" class="form-label">EMAIL:</label>
                 <input type="text" style="width: 400px;" id="email" class="form-control" name="email" value="<?php if (isset($datos['correo'])) {
-                                                                                            echo $datos['correo'];
-                                                                                        } ?>" required>
+                                                                                                                    echo $datos['correo'];
+                                                                                                                } ?>" required>
             </div>
             <div class="mb-3">
-                <label for="duda" style="width: 300px;"style="width: 300px;" class="form-label">Escribe aqui en que podemos ayudarte</label>
-                <textarea  style="width: 550px; margin: 0 auto;" id="duda" class="form-control" name="duda" cols="60" rows="8" required></textarea>
+                <label for="duda" style="width: 300px;" style="width: 300px;" class="form-label">Escribe aqui en que podemos ayudarte</label>
+                <textarea style="width: 550px; margin: 0 auto;" id="duda" class="form-control" name="duda" cols="60" rows="8" required></textarea>
             </div>
 
             <input type="submit" name="contacta" class="btn btn-primary" value="Enviar">
