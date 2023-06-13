@@ -172,6 +172,7 @@
                                                         echo "selected";
                                                     }
                                                     echo ">Alquilar</option>
+                                                    <option> No disponible </option>
                                                             </select>
                                                         </td>";
 

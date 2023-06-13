@@ -37,7 +37,7 @@
 
 
     $conexion = ConectaDB::singleton();
-    $locales = $conexion->seleccionar_Local('alquilar');
+    $locales = $conexion->seleccionar_Local('alquiler');
     ?>
     <div class="                           
                     ">
